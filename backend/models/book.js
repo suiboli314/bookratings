@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
-const Joi = require("joi");
-const { Int32 } = require("mongodb");
+import mongoose from "mongoose";
+import Joi from "joi";
+import { Int32 } from "mongodb";
 
 const bookSchema = new mongoose.Schema({
   bookName: { type: String, default: null },
@@ -8,7 +8,7 @@ const bookSchema = new mongoose.Schema({
   Author: { type: String, unique: true }
 });
 
-const Book = mongoose.model("book", bookSchema);
+export const Book = mongoose.model("book", bookSchema);
 
 const validate = (book) => {
   const schema = Joi.object({
@@ -21,4 +21,4 @@ const validate = (book) => {
   return schema.validate(book);
 };
 
-module.exports = { Book, validate };
+export default validate();

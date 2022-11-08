@@ -1,5 +1,5 @@
 import React from "react";
-import SignupForm from "../components/SignupForm";
+import SignupForm from "../components/SignupForm.js";
 import logo from "../assets/logo.png";
 
 const Signup = () => {

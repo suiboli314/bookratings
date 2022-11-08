@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import logo from "../assets/logo.png";
 import welcome from "../assets/welcome.png";
-import { Context } from "../context";
+import { Context } from "../context.js";
 
 const Actions = ({ auth, customStyle }) => {
   return (

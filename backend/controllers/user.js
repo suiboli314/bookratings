@@ -1,8 +1,10 @@
-const { User, validate } = require("../models/user");
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
+import validate, { User } from "../models/user.js";
 
-exports.signup = async (req, res) => {
+function auth() {
+  const authenticate = {};
+  authenticate.signup = async (req, res) => {
   try {
     // Validate the user data
     const { error } = validate(req.body);
@@ -37,21 +39,19 @@ exports.signup = async (req, res) => {
     const token = jwt.sign(
       { userId: user._id, email },
       process.env.TOKEN_SECRET_KEY,
-      {
-        expiresIn: "2h",
-      }
+      { expiresIn: "2h", }
     );
     user.token = token;
 
     // Send the email verification link
     return res.status(201).json(user);
   } catch (err) {
-    console.error(err);
-    return res.status(400).send(err.message);
-  }
-};
-
-exports.login = async (req, res) => {
+      console.error(err);
+      return res.status(400).send(err.message);
+    }
+  };
+  
+  authenticate.login = async (req, res) => {
     try {
       // Get user data
       const { emailOrUsername, password } = req.body;
@@ -64,12 +64,8 @@ exports.login = async (req, res) => {
       // A regex expression to test if the given value is an email or username
       let regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
       const data = regexEmail.test(emailOrUsername)
-        ? {
-            email: emailOrUsername,
-          }
-        : {
-            username: emailOrUsername,
-          };
+        ? { email: emailOrUsername, }
+        : { username: emailOrUsername, };
   
       // Validate if user exist in our database
       const user = await User.findOne(data);
@@ -80,9 +76,7 @@ exports.login = async (req, res) => {
         const token = jwt.sign(
           { user_id: user._id, email },
           process.env.TOKEN_SECRET_KEY,
-          {
-            expiresIn: "2h",
-          }
+          { expiresIn: "2h", }
         );
   
         // save user token
@@ -98,4 +92,9 @@ exports.login = async (req, res) => {
       return res.status(400).send(err.message);
     }
   };
+  
+  return authenticate;
+}
+
+export default auth();
   

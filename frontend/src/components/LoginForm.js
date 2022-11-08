@@ -1,8 +1,8 @@
 import React, { useState, useContext } from "react";
-import { Context } from "../context";
-import Alert from "./Alert";
-import Loader from "./Loader";
-import AuthService from "../services/auth.service";
+import { Context } from "../context.js";
+import Alert from "./Alert.js";
+import Loader from "./Loader.js";
+import AuthService from "../services/auth.service.js";
 
 const LoginForm = () => {
   const [emailOrUsername, setEmailOrUsername] = useState("");

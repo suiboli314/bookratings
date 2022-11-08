@@ -1,12 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
 import React, { useContext, useEffect } from "react";
-import { Context } from "./context";
-import Navbar from "./components/Navbar";
 import { Routes, Route, Navigate } from "react-router-dom";
-import Signup from "./pages/Signup";
-import Login from "./pages/Login";
-import Home from "./pages/Home";
+import { Context } from "./context.js";
+import Navbar from "./components/Navbar.js";
+import Signup from "./pages/Signup.js";
+import Login from "./pages/Login.js";
+import Home from "./pages/Home.js";
 
 const RequireAuth = ({ children }) => {
   const { state } = useContext(Context);
