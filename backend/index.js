@@ -4,9 +4,22 @@ const express = require("express");
 const router = require("./routes/index");
 
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 4000;
 
 app.use(express.json());
+const cors = require('cors');
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    callback(null, true);
+  },
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+  allowedHeaders: ["Access-Control-Allow-Origin", "Origin", "X-Requested-With", "Content-Type", "Accept", "Authorization"],
+  credentials: true
+};
+
+app.options('*', cors(corsOptions));
+app.use(cors(corsOptions));
 
 app.get("/", (req, res) => {
   res.send({ message: "Hello, nodemon!" });

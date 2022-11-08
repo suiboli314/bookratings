@@ -14,7 +14,9 @@ const validate = (book) => {
   const schema = Joi.object({
     bookName: Joi.string().required(),
     ISBN: Joi.Int32.required(),
-    Author: Joi.string().required()
+    Author_firstname: Joi.string().required(),
+    Author_lastname: Joi.string().required(),
+    Rating: Joi.Int32.required()
   });
   return schema.validate(book);
 };

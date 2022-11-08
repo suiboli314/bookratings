@@ -13,7 +13,7 @@ const LoginForm = () => {
   const [processing, setProcessing] = useState(false);
   const [alertState, setAlertState] = useState({
     show: false,
-    color: "green",
+    color: "400",
     msg: "",
   });
 
@@ -23,12 +23,15 @@ const LoginForm = () => {
     AuthService.login({ emailOrUsername, password })
       .then((res) => {
         console.log(res);
-        localStorage.setItem("educativeUser", JSON.stringify(res.data));
+        console.log(localStorage)
+        console.log(JSON.stringify(res))
+        localStorage.setItem("educativeUser", JSON.stringify(res));
+        console.log(localStorage["educativeUser"])
         dispatch({
           type: "LOGIN",
           payload: {
-            user: res.data,
-            token: res.data.token,
+            user: res,
+            token: res.token,
           },
         });
         setProcessing(false);
@@ -38,7 +41,7 @@ const LoginForm = () => {
         setProcessing(false);
         setAlertState({
           show: true,
-          color: "red",
+          color: "700",
           msg: err.response.data || "Failed to process the data",
         });
       });

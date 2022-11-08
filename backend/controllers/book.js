@@ -1,97 +1,54 @@
-const { User, validate } = require("../models/user");
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
+const { Book, validate } = require("../models/book");
 
-exports.signup = async (req, res) => {
+
+exports.insert = async (req, res) => {
   try {
     // Validate the user data
     const { error } = validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
-    const { firstName, lastName, username, email, password } = req.body; // Get the user data
+    const { bookName, ISBN, Author_firstname, Author_lastname} = req.body; // Get the user data
 
     // Check if the user exists in the database
-    const emailExists = await User.findOne({ email, username });
-    const usernameExists = await User.findOne({ username });
-    if (emailExists) {
-      return res.status(409).send("Email Already Exist. Please Login");
+    const ISBNExists = await Book.findOne({ISBN});
+    if (ISBNExists) {
+      return res.status(409).send("Book already exist.");
     }
-    if (usernameExists) {
-      return res.status(409).send("Username Already Exist. Please Login");
-    }
-
-    // Hash the password
-    const salt = await bcrypt.genSalt(Number(process.env.SALT));
-    const hashedPassword = await bcrypt.hash(password, salt);
 
     // Create an user object
-    let user = await User.create({
-      firstName,
-      lastName,
-      username,
-      email: email.toLowerCase(),
-      password: hashedPassword,
+    let book = await Book.create({
+      bookName: bookName.toLowerCase(),
+      ISBN,
+      Author_firstname: Author_firstname.toLowerCase(),
+      Author_lastname: Author_lastname.toLowerCase(),
     });
 
-    // Create the user token
-    const token = jwt.sign(
-      { userId: user._id, email },
-      process.env.TOKEN_SECRET_KEY,
-      {
-        expiresIn: "2h",
-      }
-    );
-    user.token = token;
-
     // Send the email verification link
-    return sendEmail({ email, username, res });
+    return res.status(201).json(book)
   } catch (err) {
     console.error(err);
     return res.status(400).send(err.message);
   }
 };
 
-exports.login = async (req, res) => {
+exports.get = async (req, res) => {
     try {
-      // Get user data
-      const { emailOrUsername, password } = req.body;
+      // Get book data
+      const { bookName } = req.body;
   
-      // Validate user data
-      if (!(emailOrUsername && password)) {
+      // Validate bookname data
+      if (!(bookName)) {
         res.status(400).send("All data is required");
       }
   
-      // A regex expression to test if the given value is an email or username
-      let regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-      const data = regexEmail.test(emailOrUsername)
-        ? {
-            email: emailOrUsername,
-          }
-        : {
-            username: emailOrUsername,
-          };
+      // Validate if book exist in our database
+      const book = await Book.findOne(bookName);
   
-      // Validate if user exist in our database
-      const user = await User.findOne(data);
-  
-      if (user && (await bcrypt.compare(password, user.password))) {
-        // Create token
-        const email = user.email;
-        const token = jwt.sign(
-          { user_id: user._id, email },
-          process.env.TOKEN_SECRET_KEY,
-          {
-            expiresIn: "2h",
-          }
-        );
-  
-        // save user token
-        user.token = token;
-  
-        // user
-        res.status(200).json(user);
+      if (book) {
+        // book
+        res.status(200).json(book);
       }
-      else res.status(400).send("Invalid Credentials");
+      else res.status(400).send("No book found by given name.");
     } catch (err) {
       console.error(err);
       return res.status(400).send(err.message);

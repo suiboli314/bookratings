@@ -12,7 +12,7 @@ const Home = () => {
             {`Welcome, ${state.user.firstName}!`}
           </h2>
           <p className="mt-6 text-center text-3xl text-gray-900">
-            You can upload your content easily to manage your files
+            You can upload your review for any of the books your like!
           </p>
           <img className="mx-auto w-auto my-12" src={welcome} alt="Workflow" />
         </div>

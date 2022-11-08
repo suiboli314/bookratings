@@ -44,7 +44,7 @@ exports.signup = async (req, res) => {
     user.token = token;
 
     // Send the email verification link
-    return sendEmail({ email, username, res });
+    return res.status(201).json(user);
   } catch (err) {
     console.error(err);
     return res.status(400).send(err.message);
@@ -87,6 +87,7 @@ exports.login = async (req, res) => {
   
         // save user token
         user.token = token;
+        console.log(user.token);
   
         // user
         res.status(200).json(user);

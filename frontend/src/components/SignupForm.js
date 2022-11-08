@@ -28,7 +28,7 @@ const SignupForm = () => {
         setAlertState({
           show: true,
           color: "green",
-          msg: res.data.message,
+          msg: "Successfully created account, please login.",
         });
       })
       .catch((err) => {
