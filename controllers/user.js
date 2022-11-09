@@ -1,20 +1,18 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import validate, { User } from "../models/user.js";
-
+import database from "../database/database.js";
 function auth() {
   const authenticate = {};
+  const db = database.collection("user_native");
   authenticate.signup = async (req, res) => {
     try {
-      // Validate the user data
-      const { error } = validate(req.body);
-      if (error) return res.status(400).send(error.details[0].message);
-
       const { firstName, lastName, username, email, password } = req.body; // Get the user data
 
+      console.log(email)
+      console.log(username)
       // Check if the user exists in the database
-      const emailExists = await User.findOne({ email, username });
-      const usernameExists = await User.findOne({ username });
+      const emailExists = await db.findOne({ email:email});
+      const usernameExists = await db.findOne({ username:username });
       if (emailExists) {
         return res.status(409).send("Email Already Exist. Please Login");
       }
@@ -26,25 +24,24 @@ function auth() {
       const salt = await bcrypt.genSalt(Number(process.env.SALT));
       const hashedPassword = await bcrypt.hash(password, salt);
 
-      // Create an user object
-      let user = await User.create({
-        firstName,
-        lastName,
-        username,
-        email: email.toLowerCase(),
-        password: hashedPassword,
-      });
-
       // Create the user token
       const token = jwt.sign(
-        { userId: user._id, email },
+        {email},
         process.env.TOKEN_SECRET_KEY,
         { expiresIn: "2h" }
       );
-      user.token = token;
+      
+      const result = db.insertOne({
+        firstName:firstName,
+        lastName:lastName,
+        userName:username,
+        email:email,
+        password:hashedPassword,
+        token: token
+      })
 
       // TODO: Send the email verification link
-      return res.status(201).json(user);
+      return res.status(201).json(result);
     } catch (err) {
       console.error(err);
       return res.status(400).send(err.message);

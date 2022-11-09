@@ -31,7 +31,6 @@ app
 // app.options('*', cors(corsOptions));
 // app.use(cors(corsOptions));
 
-db.connect();
 console.log(path.resolve(__dirname, "./fronend/build"));
 app.use(express.static(path.resolve(__dirname, "./frontend/build")));
 
