@@ -1,13 +1,23 @@
-import 'dotenv/config.js';
+import "dotenv/config.js";
 import express from "express";
+import logger from "morgan";
+import cookieParser from "cookie-parser";
+import { fileURLToPath } from "url";
+import path from "path";
+
 import db from "./database/database.js";
 import router from "./routes/index.js";
 
-db.connect();
-const app = express();
-const port = process.env.PORT || 4000;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-app.use(express.json());
+const app = express();
+
+app
+  .use(logger("dev"))
+  .use(express.json())
+  .use(express.urlencoded({ extended: false }))
+  .use(cookieParser());
 
 // const corsOptions = {
 //   origin: (origin, callback) => {
@@ -21,14 +31,12 @@ app.use(express.json());
 // app.options('*', cors(corsOptions));
 // app.use(cors(corsOptions));
 
-app.get("/", (req, res) => {
-  res.send({ message: "Hello, nodemon!" });
-});
+db.connect();
+console.log(path.resolve(__dirname, "./fronend/build"));
+app.use(express.static(path.resolve(__dirname, "./frontend/build")));
 
 // Register the application main router
 app.use("/api", router);
 //app.use("/user", userrouter);
 
-app.listen(port, () => {
-  console.log(`app is listening at http://localhost:${port}`);
-});
+export default app;

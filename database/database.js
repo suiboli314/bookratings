@@ -1,14 +1,11 @@
 import mongoose from "mongoose";
 
-//const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017";
-const MONGO_URI = process.env.MONGO_URI;
-
 function database() {
   const db = {};
 
-  console.log(MONGO_URI);
-
   db.connect = () => {
+    const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017";
+    console.log("MONGO_URI: ", MONGO_URI);
     mongoose
       .connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
       .then(() => {
