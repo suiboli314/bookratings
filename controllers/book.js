@@ -1,29 +1,27 @@
-import validate, { Book } from "../models/book.js";
+import database from "../database/database.js";
 
 function Book() {
   const book = {};
+  const db = database.collection("book_native");
 
   book.insert = async (req, res) => {
     try {
       // Validate the user data
-      const { error } = validate(req.body);
-      if (error) return res.status(400).send(error.details[0].message);
-
       const { bookName, ISBN, Author_firstname, Author_lastname} = req.body; // Get the user data
 
       // Check if the user exists in the database
-      const ISBNExists = await Book.findOne({ISBN});
+      const ISBNExists = await db.findOne({ISBN: ISBN});
       if (ISBNExists) {
         return res.status(409).send("Book already exist.");
       }
 
       // Create an user object
-      let book = await Book.create({
-        bookName: bookName.toLowerCase(),
-        ISBN,
-        Author_firstname: Author_firstname.toLowerCase(),
-        Author_lastname: Author_lastname.toLowerCase(),
-      });
+      const result = db.insertOne({
+        bookName:bookName,
+        ISBN:ISBN,
+        Author_firstname: Author_firstname,
+        Author_lastname: Author_lastname,
+      })
 
       // Send the email verification link
       return res.status(201).json(book)
@@ -44,7 +42,7 @@ function Book() {
       }
   
       // Validate if book exist in our database
-      const book = await Book.findOne(bookName);
+      const book = await db.findOne({bookName: bookName});
   
       if (book) {
         // book
