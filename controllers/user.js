@@ -63,16 +63,15 @@ function auth() {
       let regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
       const data = regexEmail.test(emailOrUsername)
         ? { email: emailOrUsername }
-        : { username: emailOrUsername };
-
+        : { userName: emailOrUsername };
       // Validate if user exist in our database
-      const user = await User.findOne(data);
+      const user = await db.findOne(data);;
 
       if (user && (await bcrypt.compare(password, user.password))) {
         // Create token
         const email = user.email;
         const token = jwt.sign(
-          { user_id: user._id, email },
+          { email },
           process.env.TOKEN_SECRET_KEY,
           { expiresIn: "2h" }
         );
