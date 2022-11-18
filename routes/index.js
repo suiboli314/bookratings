@@ -9,9 +9,10 @@ router.post("/signup", userController.signup);
 router.post("/login", userController.login);
 router.post("/insertbook", bookController.insert);
 router.post("/getbook", bookController.get);
+router.get("/getallbooks", bookController.getAllBooks);
 router.post("/insertreview", reviewController.insert);
-router.post("/getallbookreview", reviewController.getallbookreview);
-router.post("/getalluserreview", reviewController.getalluserreview);
+router.post("/getbookallreview", reviewController.getBookAllReview);
+router.post("/getuserallreview", reviewController.getUserAllReview);
 router.post("/getuserbookreview", reviewController.getuserbookreview);
 
 export default router;

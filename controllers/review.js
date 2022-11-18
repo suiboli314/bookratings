@@ -2,88 +2,93 @@ import database from "../database/database.js";
 
 function Review() {
   const review = {};
-  const db = database.collection("review_native");
+  const db_review = database.collection("review_native");
   const db_user = database.collection("user_native");
   const db_book = database.collection("book_native");
 
   review.insert = async (req, res) => {
     try {
       // Validate the user data
-      const { bookName, userName, rating, review} = req.body; // Get the user data
+      const { bookName, userName, rating, review } = req.body; // Get the user data
 
       // Check if the user exists in the database
-      const bookNameExists = await db_book.findOne({bookName: bookName});
-      const userNameExists = await db_user.findOne({userName: userName});
-      if (!(bookNameExists)) {
+      const bookNameExists = await db_book.findOne({ bookName: bookName });
+      const userNameExists = await db_user.findOne({ userName: userName });
+      if (!bookNameExists) {
         return res.status(409).send("Book not in database.");
       }
-      if (!(userNameExists)) {
+      if (!userNameExists) {
         return res.status(409).send("User not in database.");
       }
 
-      if(rating > 5 || rating < 0){
+      if (rating > 5 || rating < 0) {
         return res.status(409).send("Rating must be in rang 0 to 5.");
       }
 
-
       // Create an user object
-      const result = await db.insertOne({
+      const result = await db_review.insertOne({
         bookName: bookName,
         userName: userName,
         rating: rating,
         review: review,
-      })
+      });
 
-      // Send the email verification link
-      return res.status(201).json(result)
+      // TODO: calculated and updated weighted rating value for the book just reated
+      return res.status(201).json(result);
     } catch (err) {
       console.error(err);
       return res.status(400).send(err.message);
     }
   };
 
-  review.getallbookreview = async (req, res) => {
+  /**
+   * Given a book name, find all reviews of such a book
+   * 
+   * @param {*} req body has a field of bookName
+   * @returns all reviews of a given book
+   */
+  review.getBookAllReview = async (req, res) => {
     try {
       // Get book data
-      const { bookName} = req.body;
-  
+      const { bookName } = req.body;
+
       // Validate bookname data
-      if (!(bookName)) {
-        res.status(400).send("All data is required");
+      if (!bookName) {
+        return res.status(400).send("All data is required");
       }
-  
+
       // Validate if book exist in our database
-      const bookreview = await db.find({bookName: bookName});
-  
+      const bookreview = await db_review.find({ bookName: bookName }).toArray();
+
       if (bookreview) {
         // book
         res.status(200).json(bookreview);
-      }
-      else res.status(400).send("No book found by given name.");
+      } else res.status(400).send("No book found by given name.");
     } catch (err) {
       console.error(err);
       return res.status(400).send(err.message);
     }
   };
 
-  review.getalluserreview = async (req, res) => {
+  review.getUserAllReview = async (req, res) => {
     try {
-      // Get book data
-      const {userName} = req.body;
-  
-      // Validate bookname data
-      if (!(userName)) {
-        res.status(400).send("All data is required");
+      // Get user data
+      const { userName } = req.body;
+
+      // Validate user data
+      if (!userName) {
+        return res.status(400).send("All data is required");
       }
-  
-      // Validate if book exist in our database
-      var alluserreview = await db.find({userName: userName}).toArray();
+
+      // Validate if user exist in our database
+      var alluserreview = await db_review
+        .find({ userName: userName })
+        .toArray();
       console.log(userName);
       console.log(alluserreview);
-      if(alluserreview){
+      if (alluserreview) {
         res.status(200).json(alluserreview);
-      }
-      else res.status(400).send("No book found by given user name.");
+      } else res.status(400).send("No book found by given user name.");
     } catch (err) {
       console.error(err);
       return res.status(400).send(err.message);
@@ -92,30 +97,34 @@ function Review() {
 
   review.getuserbookreview = async (req, res) => {
     try {
-      // Get book data
-      const {bookName, userName} = req.body;
-  
-      // Validate bookname data
-      if (!(userName) || !(bookName)) {
-        res.status(400).send("All data is required");
+      // Get book and user data
+      const { bookName, userName } = req.body;
+
+      // Validate bookname and user data
+      if (!userName || !bookName) {
+        return res.status(400).send("All data is required");
       }
-  
-      // Validate if book exist in our database
-      const bookreview = await db.findOne({userName: userName, bookName: bookName});
-  
+
+      // Validate if book and user exist in our database
+      const bookreview = await db_review.findOne({
+        userName: userName,
+        bookName: bookName,
+      });
+
       if (bookreview) {
         // book
         res.status(200).json(bookreview);
-      }
-      else res.status(400).send("No book review found by given user for given book.");
+      } else
+        res
+          .status(400)
+          .send("No book review found by given user for given book.");
     } catch (err) {
       console.error(err);
       return res.status(400).send(err.message);
     }
   };
-  
+
   return review;
 }
-
 
 export default Review();
