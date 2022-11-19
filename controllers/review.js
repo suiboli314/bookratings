@@ -1,4 +1,5 @@
 import database from "../database/database.js";
+import book from "./book.js";
 
 function Review() {
   const review = {};
@@ -12,17 +13,13 @@ function Review() {
       const { bookName, userName, rating, review } = req.body; // Get the user data
 
       // Check if the user exists in the database
-      const bookNameExists = await db_book.findOne({ bookName: bookName });
       const userNameExists = await db_user.findOne({ userName: userName });
-      if (!bookNameExists) {
-        return res.status(409).send("Book not in database.");
-      }
       if (!userNameExists) {
         return res.status(409).send("User not in database.");
       }
 
       if (rating > 5 || rating < 0) {
-        return res.status(409).send("Rating must be in rang 0 to 5.");
+        return res.status(409).send("Rating must be in range 0 to 5.");
       }
 
       // Create an user object

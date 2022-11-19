@@ -7,6 +7,7 @@ import Navbar from "./components/Navbar.js";
 import Signup from "./pages/Signup.js";
 import Login from "./pages/Login.js";
 import Home from "./pages/Home.js";
+import LeaveaReview from "./pages/LeaveReview.js";
 
 const RequireAuth = ({ children }) => {
   const { state } = useContext(Context);
@@ -45,7 +46,14 @@ const App = () => {
             </RequireAuth>
           }
         />
-
+        <Route
+          path="/leaveareview"
+          element={
+            <RequireAuth>
+              <LeaveaReview />
+            </RequireAuth>
+          }
+        />
         <Route
           path="/signup"
           element={

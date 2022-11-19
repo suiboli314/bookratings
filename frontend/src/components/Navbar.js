@@ -10,9 +10,14 @@ const Actions = ({ auth, customStyle }) => {
   return (
     <>
       {auth ? (
-        <button type="button" className={customStyle}>
-          Logout
-        </button>
+        <>
+          <button type="button" className={customStyle}>
+            Logout
+          </button>
+          <Link to="/leaveareview" className={customStyle}>
+            Leave Review
+          </Link>
+        </>
       ) : (
         <>
           <Link to="/login" className={customStyle}>
