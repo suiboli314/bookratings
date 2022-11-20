@@ -1,12 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
 import React, { useContext, useEffect } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, BrowserRouter } from "react-router-dom";
 import { Context } from "./context.js";
 import Navbar from "./components/Navbar.js";
 import Signup from "./pages/Signup.js";
 import Login from "./pages/Login.js";
 import Home from "./pages/Home.js";
+import Ranking from "./pages/Ranking.js";
 import LeaveaReview from "./pages/LeaveReview.js";
 
 const RequireAuth = ({ children }) => {
@@ -16,11 +17,11 @@ const RequireAuth = ({ children }) => {
 
 const OnlyNotAuth = ({ children }) => {
   const { state } = useContext(Context);
-  return !state.auth ? children : <Navigate to="/" replace />;
+  return !state.auth ? children : <Navigate to="/home" replace />;
 };
 
 const App = () => {
-  localStorage.clear()
+  localStorage.clear();
   const { dispatch } = useContext(Context);
 
   useEffect(() => {
@@ -35,11 +36,12 @@ const App = () => {
       });
   }, []);
   return (
-    <>
+    <BrowserRouter>
       <Navbar auth={false} />
       <Routes>
+        <Route path="/" element={<Ranking />} />
         <Route
-          path="/"
+          path="/home"
           element={
             <RequireAuth>
               <Home />
@@ -71,7 +73,7 @@ const App = () => {
           }
         />
       </Routes>
-    </>
+    </BrowserRouter>
   );
 };
 
