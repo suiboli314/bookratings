@@ -23,10 +23,10 @@ const LoginForm = () => {
     AuthService.login({ emailOrUsername, password })
       .then((res) => {
         console.log(res);
-        console.log(localStorage)
-        console.log(JSON.stringify(res))
+        console.log(localStorage);
+        console.log(JSON.stringify(res));
         localStorage.setItem("educativeUser", JSON.stringify(res));
-        console.log(localStorage["educativeUser"])
+        console.log(localStorage["educativeUser"]);
         dispatch({
           type: "LOGIN",
           payload: {
@@ -66,7 +66,7 @@ const LoginForm = () => {
             autoComplete="email"
             required
             className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-            placeholder="Email address or Username"
+            placeholder="Email address"
             value={emailOrUsername}
             onChange={(e) => setEmailOrUsername(e.target.value)}
           />

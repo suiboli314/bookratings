@@ -24,7 +24,7 @@ const Actions = ({ auth, customStyle }) => {
             Login
           </Link>
           <Link to="/signup" className={customStyle}>
-            Signup
+            Sign Up
           </Link>
         </>
       )}

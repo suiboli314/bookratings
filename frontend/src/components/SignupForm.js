@@ -152,7 +152,7 @@ const SignupForm = () => {
               />
             </svg>
           </span>
-          Signup
+          Sign Up
         </button>
       </div>
       <div className="flex justify-center">
