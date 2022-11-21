@@ -1,7 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
 import React, { useContext, useEffect } from "react";
-import { Routes, Route, Navigate, BrowserRouter } from "react-router-dom";
+import {
+  Navigate,
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
 import { Context } from "./context.js";
 import Signup from "./pages/Signup.js";
 import Login from "./pages/Login.js";
@@ -34,45 +38,47 @@ const App = () => {
         },
       });
   }, []);
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Ranking />} />
-        <Route
-          path="/home"
-          element={
-            <RequireAuth>
-              <Home />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/leaveareview"
-          element={
-            <RequireAuth>
-              <LeaveaReview />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/signup"
-          element={
-            <OnlyNotAuth>
-              <Signup />
-            </OnlyNotAuth>
-          }
-        />
-        <Route
-          path="/login"
-          element={
-            <OnlyNotAuth>
-              <Login />
-            </OnlyNotAuth>
-          }
-        />
-      </Routes>
-    </BrowserRouter>
-  );
+
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Ranking />,
+    },
+    {
+      path: "/home",
+      element: (
+        <RequireAuth>
+          <Home />
+        </RequireAuth>
+      ),
+    },
+    {
+      path: "/signup",
+      element: (
+        <OnlyNotAuth>
+          <Signup />
+        </OnlyNotAuth>
+      ),
+    },
+    {
+      path: "/login",
+      element: (
+        <OnlyNotAuth>
+          <Login />
+        </OnlyNotAuth>
+      ),
+    },
+    {
+      path: "/leaveareview",
+      element: (
+        <RequireAuth>
+          <LeaveaReview />
+        </RequireAuth>
+      ),
+    },
+  ]);
+
+  return <RouterProvider router={router} />;
 };
 
 export default App;
