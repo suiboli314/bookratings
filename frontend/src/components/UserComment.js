@@ -21,7 +21,7 @@ const UserComment = () => {
   return (
     <>
       <section>
-        <div className="divide-y divide-slate-100">
+        <div className="left-1 divide-y divide-slate-100">
           <List>
             {UserCommentvalue.map((book) => (
               <ListItem key={book._id} book={book} />

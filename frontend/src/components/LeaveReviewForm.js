@@ -65,7 +65,7 @@ const LeaveReviewForm = () => {
             type="text"
             autoComplete="bookName"
             className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm"
-            placeholder="book Name"
+            placeholder="Book Name"
             value={bookName}
             onChange={(e) => setbookName(e.target.value)}
             required
@@ -82,7 +82,7 @@ const LeaveReviewForm = () => {
             autoComplete="rating"
             required
             className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm"
-            placeholder="Last Name"
+            placeholder="Score"
             value={rating}
             onChange={(e) => setRating(e.target.value)}
           />
@@ -97,8 +97,8 @@ const LeaveReviewForm = () => {
             type="text"
             autoComplete="review"
             required
-            className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm"
-            placeholder="review"
+            className="appearance-none rounded-none relative block w-full px-3 py-2px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm"
+            placeholder="Your Thoughts:"
             value={review}
             onChange={(e) => setReview(e.target.value)}
           />
@@ -109,7 +109,7 @@ const LeaveReviewForm = () => {
           type="submit"
           className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
         >
-          <span className="absolute left-0 inset-y-0 flex items-center pl-3">
+          {/* <span className="absolute left-0 inset-y-0 flex items-center pl-3">
             <svg
               className="h-5 w-5 text-sky-500 group-hover:text-sky-400"
               xmlns="http://www.w3.org/2000/svg"
@@ -123,7 +123,7 @@ const LeaveReviewForm = () => {
                 clipRule="evenodd"
               />
             </svg>
-          </span>
+          </span> */}
           Leave review
         </button>
       </div>
