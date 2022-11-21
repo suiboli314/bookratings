@@ -3,7 +3,6 @@
 import React, { useContext, useEffect } from "react";
 import { Routes, Route, Navigate, BrowserRouter } from "react-router-dom";
 import { Context } from "./context.js";
-import Navbar from "./components/Navbar.js";
 import Signup from "./pages/Signup.js";
 import Login from "./pages/Login.js";
 import Home from "./pages/Home.js";
@@ -37,7 +36,6 @@ const App = () => {
   }, []);
   return (
     <BrowserRouter>
-      <Navbar auth={false} />
       <Routes>
         <Route path="/" element={<Ranking />} />
         <Route

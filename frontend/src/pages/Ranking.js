@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import Gallery from "../components/Gallery.jsx";
 import { getAllBooks } from "../services/pin.service.js";
+import BasePage from "./BasePage.js";
 
 function Ranking() {
   const [deviceWidth, setDeviceWidth] = useState(window.screen.width);
@@ -30,37 +31,40 @@ function Ranking() {
 
   const allPins = //<></>;
     books.map((card) => {
-    const href =
-      window.location.pathname.slice(0, 5) === "/card"
-        ? card.id
-        : "card/" + card.id;
+      const href =
+        window.location.pathname.slice(0, 5) === "/card"
+          ? card.id
+          : "card/" + card.id;
 
-    const [cardWidth, cardHeight] = setPinDimension(card.width, card.height);
+      const [cardWidth, cardHeight] = setPinDimension(card.width, card.height);
 
-    const imgAltText =
-      card.bookName + " | " + card.userName + "'s card - " + card.id;
-    return (
-      <div
-        key={card.bookName}
-        style={{ width: cardWidth }}
-      >
-        {/* <NavLink to={"" + href} title={card.userName + "'s card"}> */}
-          {/* <img
+      const imgAltText =
+        card.bookName + " | " + card.userName + "'s card - " + card.id;
+      return (
+
+          <div key={card.bookName} style={{ width: cardWidth }}>
+            {/* <NavLink to={"" + href} title={card.userName + "'s card"}> */}
+            {/* <img
               src={card.fileURL}
               alt={imgAltText}
               style={{ minHeight: cardHeight, minWidth: cardWidth }}
             /> */}
-          <div>
-            {/* <img src={card.infoPhotoURL} alt={ imgAltText} /> */}
-            <p>{card.bookName}</p>
+            <div>
+              {/* <img src={card.infoPhotoURL} alt={ imgAltText} /> */}
+              <p>{card.bookName}</p>
+            </div>
+            {/* </NavLink> */}
           </div>
-        {/* </NavLink> */}
-      </div>
-    );
-  });
+
+      );
+    });
 
   console.log(allPins);
-  return <Gallery allPins={allPins}></Gallery>;
+  return (
+    <BasePage>
+      <Gallery allPins={allPins}></Gallery>
+    </BasePage>
+  );
 }
 
 export default Ranking;
