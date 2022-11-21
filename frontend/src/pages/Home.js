@@ -4,8 +4,8 @@ import UserComment from "../components/UserComment.js";
 
 const Home = () => {
   const { state } = useContext(Context);
-  console.log(state)
-  console.log(state.user.userName)
+  console.log(state);
+  console.log(state.user.userName);
   return (
     <>
       <section class="py-24 2xl:py-44 bg-blueGray-100 rounded-t-10xl overflow-hidden">
@@ -15,8 +15,8 @@ const Home = () => {
               {`Welcome, ${state.user.firstName}!`}
             </h2>
           </div>
-        </div> 
-        <UserComment/>
+        </div>
+        <UserComment />
       </section>
     </>
   );

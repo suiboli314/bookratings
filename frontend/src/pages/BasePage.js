@@ -1,12 +1,13 @@
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import NavBar from "../components/Navbar.js";
+import Footer from "./Footer.js";
 
 function BasePage({ children }) {
   return (
     <div className="BasePage">
       <NavBar></NavBar>
       <main>{children}</main>
-      {/* <Footer></Footer> */}
+      <Footer></Footer>
     </div>
   );
 }
