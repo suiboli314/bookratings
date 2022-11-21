@@ -31,10 +31,10 @@ function Ranking() {
 
   const allPins = //<></>;
     books.map((card) => {
-      const href =
-        window.location.pathname.slice(0, 5) === "/card"
-          ? card.id
-          : "card/" + card.id;
+      // const href =
+      //   window.location.pathname.slice(0, 5) === "/card"
+      //     ? card.id
+      //     : "card/" + card.id;
 
       const [cardWidth, cardHeight] = setPinDimension(card.width, card.height);
 
