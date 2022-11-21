@@ -30,3 +30,5 @@ cd front && yarn install && yarn start
 ```
 
 And the frontend will run on http://localhost:3000
+
+Desgin Document: https://docs.google.com/document/d/1-duJDbdfWg-0bAUMXCWdZ1eKn0AxaVZo7baDXCU0Z6U/edit
