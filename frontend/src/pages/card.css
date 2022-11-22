@@ -1,0 +1,84 @@
+.gallery {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.card-link {
+  text-decoration: none;
+  color: black;
+  outline: none;
+  display: block;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 12.5px;
+}
+
+.card-link:focus {
+  animation: blinkBorder 5s infinite ease-in-out;
+}
+
+.card-link:focus .card-p-top img {
+  animation: blinkCardImg 5s infinite ease-in-out;
+}
+
+.card-gutter {
+  margin: 25px 10px 10px 10px;
+}
+
+.card-p {
+  background-color: white;
+  width: 250px;
+  height: auto;
+  outline: none;
+  box-shadow: 0 0 20px 0px var(--blackTransparent);
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.card-p:hover {
+  filter: brightness(80%);
+}
+.card-p-top img {
+  background-color: #7290e9;
+  width: 100%;
+  height: auto;
+  cursor: zoom-in;
+  border-radius: 15px;
+}
+
+.card-p-buttom {
+  display: flex;
+  align-items: center;
+}
+.card-p-buttom img {
+  width: 24px;
+  height: 24px;
+  cursor: zoom-in;
+  border-radius: 50%;
+}
+.card-p-buttom p {
+  width: 100%;
+  margin: 0 0 0 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+  border-bottom-right-radius: 10px;
+}
+.card-p-buttom p::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 35%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0),
+    var(--white) 100%
+  );
+}

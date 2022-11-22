@@ -7,14 +7,13 @@ export default function Gallery({ allPins }) {
   };
 
   return (
-    <>
-      <Masonry
-        options={masonryOptions}
-        disableImagesLoaded={false}
-        updateOnEachImageLoad={false}
-      >
-        {allPins}
-      </Masonry>
-    </>
+    <Masonry
+      options={masonryOptions}
+      disableImagesLoaded={false}
+      updateOnEachImageLoad={false}
+      className="gallery"
+    >
+      {allPins}
+    </Masonry>
   );
 }
