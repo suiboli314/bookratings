@@ -31,4 +31,8 @@ cd front && yarn install && yarn start
 
 And the frontend will run on http://localhost:3000
 
-Desgin Document: https://docs.google.com/document/d/1-duJDbdfWg-0bAUMXCWdZ1eKn0AxaVZo7baDXCU0Z6U/edit
+###### [Desgin Document](https://docs.google.com/document/d/1-duJDbdfWg-0bAUMXCWdZ1eKn0AxaVZo7baDXCU0Z6U/edit)
+
+###### [60% milestone on Nov 15](https://github.com/suiboli314/bookratings/releases/tag/60%25)
+
+###### [80% milestone on Nov 22](https://github.com/suiboli314/bookratings/releases/tag/80%25)
