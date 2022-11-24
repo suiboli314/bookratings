@@ -1,3 +1,8 @@
+main {
+  display: grid;
+  justify-content: center;
+}
+
 .gallery {
   position: relative;
   display: flex;
@@ -31,16 +36,14 @@
 
 .card-p {
   background-color: white;
-  width: 250px;
   height: auto;
   outline: none;
-  box-shadow: 0 0 20px 0px var(--blackTransparent);
+  box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.2);
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
 }
-
 .card-p:hover {
   filter: brightness(80%);
 }
@@ -65,7 +68,6 @@
 .card-p-buttom p {
   width: 100%;
   margin: 0 0 0 5px;
-  white-space: nowrap;
   overflow: hidden;
   position: relative;
   border-bottom-right-radius: 10px;
@@ -77,9 +79,5 @@
   top: 0;
   width: 35%;
   height: 100%;
-  background: linear-gradient(
-    to right,
-    rgba(255, 255, 255, 0),
-    var(--white) 100%
-  );
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), white 180%);
 }

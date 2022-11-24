@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import Gallery from "../components/Gallery.jsx";
 import { getAllBooks } from "../services/pin.service.js";
 import BasePage from "./BasePage.js";
-import "./card.css"
+import "./card.css";
 
 function Ranking() {
   const [deviceWidth, setDeviceWidth] = useState(window.screen.width);
@@ -20,17 +20,15 @@ function Ranking() {
     }
   }, []);
 
-
   useEffect(() => {
     getAllBooks(setBookList);
   }, []);
 
-  function setPinDimension(width, height) {
+  function setPinDimension(width = 200, height) {
     let cardWidth = 250;
     if (deviceWidth <= 650) cardWidth = deviceWidth / 2 - 16;
     let cardWidthPerc = (cardWidth * 100) / width;
     let cardHeight = (height * cardWidthPerc) / 100;
-
     cardWidth = cardWidth + "px";
     cardHeight = cardHeight + "px";
     return [cardWidth, cardHeight];
@@ -44,14 +42,14 @@ function Ranking() {
       //     : "card/" + card.id;
 
       const [cardWidth, cardHeight] = setPinDimension(card.width, card.height);
-
+      
       const imgAltText =
         card.bookName + " | " + card.userName + "'s card - " + card.id;
       return (
         <div
-          className="card-p card-gutter shadow-2xl"
+          className="card-p card-gutter"
           key={card.bookName}
-          style={{ minHeight: cardHeight, width: cardWidth }}
+          style={{ minHeight: card.fileURL === undefined ? "auto" : cardHeight, width: cardWidth }}
         >
           <div className="card-link">
             {/* <NavLink to={"" + href} title={card.userName + "'s card"}> */}
