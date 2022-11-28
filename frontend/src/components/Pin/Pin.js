@@ -7,7 +7,13 @@ const Pin = ({ pin, width, height }) => {
   let description = pin.infoDescription;
 
   title = title ? <p>{title}</p> : <></>;
-  authors = authors ? <p>Author: <br /> {authors}</p> : <></>;
+  authors = authors ? (
+    <p>
+      Author: <br /> {authors}
+    </p>
+  ) : (
+    <></>
+  );
   description = description ? <p>{description}</p> : <></>;
 
   return (
@@ -20,10 +26,14 @@ const Pin = ({ pin, width, height }) => {
       }}
     >
       <div className="pin-link">
-        <div className="pin-p-desc">
+        <span className="pin-p-desc">
           {title}
-          {authors}
           {description}
+        </span>
+      </div>
+      <div className="pin-link">
+        <div className="pin-p-desc">
+          <div className="pin-p-desc text-sky-400">{authors}</div>
         </div>
       </div>
     </div>
