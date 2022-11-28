@@ -24,7 +24,6 @@ const SignupForm = () => {
 
     AuthService.signup({ firstName, lastName, username, email, password })
       .then((res) => {
-        console.log(res);
         setProcessing(false);
         setAlertState({
           show: true,

@@ -15,7 +15,6 @@ export default function ListItem({ book, userName, setTime }) {
   });
 
   const deletereview = (bookName, userName) => {
-    console.log(bookName, userName);
     ReviewService.deletereview({ bookName, userName })
       .then((res) => {
         setTime(new Date());

@@ -49,7 +49,6 @@ function auth() {
 
   authenticate.reset = async (req, res) => {
     const { emailOrUsername, password } = req.body; // Get the user data
-
     // A regex expression to test if the given value is an email or username
     let regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{1,8})+$/;
     const data = regexEmail.test(emailOrUsername)

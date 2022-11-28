@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import { GoLock } from "react-icons/go/index.js";
 
 import { Context } from "../../context.js";
@@ -7,7 +7,6 @@ import Loader from "../Loader.js";
 import AuthService from "../../services/auth.service.js";
 
 const LoginForm = () => {
-  const [emailOrUsername, setEmailOrUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const { state, dispatch } = useContext(Context);
@@ -21,7 +20,7 @@ const LoginForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(emailOrUsername, password);
+    const emailOrUsername = state.user.email;
     try {
       await AuthService.reset({ emailOrUsername, password, dispatch });
       setProcessing(false);
@@ -56,7 +55,6 @@ const LoginForm = () => {
           className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none invalid:border-pink-500 invalid:text-pink-600 sm:text-sm"
           placeholder={state.user.email}
           value={state.user.email}
-          onChange={(e) => setEmailOrUsername(e.target.value)}
         />
 
         <label htmlFor="password" className="sr-only">

@@ -78,8 +78,6 @@ function Review() {
     let client, db_review;
     try {
       [client, db_review] = await database.collection(COLLECTION_NAME_REVIEW);
-      console.log("client", client);
-      console.log("\ndb ", db_review);
       // Validate if user exist in our database
       var alluserreview = await db_review
         .find({ userName: userName })
