@@ -2,8 +2,6 @@ import React, { useState, useContext } from "react";
 import { Transition } from "@headlessui/react";
 import { Link } from "react-router-dom";
 
-import logo from "../assets/logo.png";
-import welcome from "../assets/welcome.png";
 import { Context } from "../context.js";
 
 const Actions = ({ auth, customStyle }) => {
@@ -135,5 +133,7 @@ const Navbar = ({ auth }) => {
     </>
   );
 };
+
+Navbar.propTypes = {};
 
 export default Navbar;

@@ -23,4 +23,6 @@ const Signup = () => {
   );
 };
 
+Signup.propTypes = {};
+
 export default Signup;

@@ -3,7 +3,7 @@ import LeaveReviewForm from "../components/LeaveReviewForm.js";
 import logo from "../assets/logo.png";
 import BasePage from "./BasePage.js";
 
-const LeaveaReview = () => {
+const LeaveReview = () => {
   return (
     <>
       <BasePage>
@@ -23,4 +23,6 @@ const LeaveaReview = () => {
   );
 };
 
-export default LeaveaReview;
+LeaveReview.propTypes = {};
+
+export default LeaveReview;
