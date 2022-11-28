@@ -76,6 +76,14 @@ const App = () => {
         </RequireAuth>
       ),
     },
+    {
+      path: "/ranking",
+      element: (
+        <RequireAuth>
+          <Ranking />
+        </RequireAuth>
+      ),
+    },
   ]);
 
   return <RouterProvider router={router} />;

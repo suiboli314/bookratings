@@ -9,6 +9,9 @@ const Actions = ({ auth, customStyle }) => {
     <>
       {auth ? (
         <>
+          <Link to="/ranking" className={customStyle}>
+            Ranking
+          </Link>
           <button type="button" className={customStyle}>
             Logout
           </button>
