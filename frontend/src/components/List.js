@@ -5,5 +5,9 @@ export default function List({ children }) {
 }
 
 List.propTypes = {
-  children: PropTypes.object.isRequired,
+  // https://stackoverflow.com/questions/42122522/reactjs-what-should-the-proptypes-be-for-this-props-children
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
 };

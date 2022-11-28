@@ -7,7 +7,7 @@ export default function ListItem({ book }) {
     return (
       <svg
         aria-hidden="true"
-        class="w-5 h-5 text-yellow-400"
+        className="w-5 h-5 text-yellow-400"
         fill="currentColor"
         viewBox="0 0 20 20"
         xmlns="http://www.w3.org/2000/svg"
@@ -21,30 +21,29 @@ export default function ListItem({ book }) {
 
   const getStars = (rating) => {
     let stars = [];
-    for (let i = 0; i < rating; i++) {
+    for (let i = 0; i < rating; i++) 
       stars.push(star(i));
-    }
-    console.log("stars: " + stars.length);
+    
     return stars;
   };
 
   return (
     <article>
       <div className="relative border-separate ml-4 mr-4 border rounded-lg border-spacing-x=y-2 border-b-2 border-sky-600">
-        <div class="ml-4 flex items-center mb-4 space-x-4"></div>
-        <div class="ml-4 flex items-center mb-1">
-          <h3 class="ml-4 text-sm font-semibold text-gray-900 dark:text-white">
+        <div className="ml-4 flex items-center mb-4 space-x-4"></div>
+        <div className="ml-4 flex items-center mb-1">
+          <h3 className="ml-4 text-sm font-semibold text-gray-900 dark:text-white">
             {book.bookName}
           </h3>
           {getStars(book.rating)}
-          <button class="absolute right-2">
+          <button className="absolute right-2">
             <BiTrashAlt />
           </button>
           <button>
             <AiOutlineEdit />
           </button>
         </div>
-        <p class="ml-10 font-light text-gray-500 dark:text-gray-400">
+        <p className="ml-10 font-light text-gray-500 dark:text-gray-400">
           {book.review}
         </p>
       </div>

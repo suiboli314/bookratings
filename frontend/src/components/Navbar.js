@@ -4,8 +4,9 @@ import { Link } from "react-router-dom";
 
 import { MdMenuOpen, MdClose } from "react-icons/md/index.js";
 import { Context } from "../context.js";
+import AuthService from "../services/auth.service.js";
 
-const Actions = ({ auth, customStyle }) => {
+const Actions = ({ auth, customStyle, dispatch }) => {
   return (
     <>
       {auth ? (
@@ -16,9 +17,12 @@ const Actions = ({ auth, customStyle }) => {
           <Link to="/leaveareview" className={customStyle}>
             Leave Review
           </Link>
-          <Link to="/logout" className={customStyle}>
+          <button
+            className={customStyle + " btn"}
+            onClick={() => AuthService.logout(dispatch)}
+          >
             Logout
-          </Link>
+          </button>
         </>
       ) : (
         <>
@@ -35,7 +39,7 @@ const Actions = ({ auth, customStyle }) => {
 };
 
 const Navbar = () => {
-  const { state } = useContext(Context);
+  const { state, dispatch } = useContext(Context);
   const [isOpen, setIsOpen] = useState(false);
 
   const mainstyle =
@@ -46,8 +50,6 @@ const Navbar = () => {
 
   const mobileStyle =
     "bg-gray-900 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white";
-  
-  
 
   return (
     <>
@@ -64,7 +66,11 @@ const Navbar = () => {
               </div>
             </div>
             <div className="hidden md:block">
-              <Actions auth={state.auth} customStyle={sidstyle} />
+              <Actions
+                auth={state.auth}
+                customStyle={sidstyle}
+                dispatch={dispatch}
+              />
             </div>
             <div className="-mr-2 flex md:hidden">
               <button
@@ -96,7 +102,11 @@ const Navbar = () => {
                 <Link to="/" className={mainstyle}>
                   Ranking
                 </Link>
-                <Actions auth={state.auth} customStyle={mainstyle} />
+                <Actions
+                  auth={state.auth}
+                  dispatch={dispatch}
+                  customStyle={mainstyle}
+                />
               </div>
             </div>
           )}

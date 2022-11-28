@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Context } from "../context.js";
 import Loader from "./Loader.js";
 import Alert from "./Alert.js";
@@ -28,7 +28,6 @@ const LeaveReviewForm = () => {
 
     ReviewService.insertreview({ bookName, userName, rating, review })
       .then((res) => {
-        console.log(res);
         setProcessing(false);
         setAlertState({
           show: true,
@@ -133,5 +132,7 @@ const LeaveReviewForm = () => {
     </form>
   );
 };
+
+LeaveReviewForm.propTypes = {};
 
 export default LeaveReviewForm;

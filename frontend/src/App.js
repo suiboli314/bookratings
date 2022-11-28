@@ -25,10 +25,10 @@ const OnlyNotAuth = ({ children }) => {
 
 const App = () => {
   localStorage.clear();
-  const { dispatch } = useContext(Context);
+  const { state, dispatch } = useContext(Context);
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("educativeUser"));
+    const user = JSON.parse(localStorage.getItem("user"));
     if (user)
       dispatch({
         type: "LOGIN",
@@ -37,7 +37,7 @@ const App = () => {
           token: user?.token,
         },
       });
-  }, []);
+  }, [state.auth]);
 
   const router = createBrowserRouter([
     {

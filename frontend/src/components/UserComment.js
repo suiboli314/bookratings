@@ -6,29 +6,24 @@ import ListItem from "./ListItem.js";
 const UserComment = () => {
   const [UserCommentvalue, setUserComment] = useState([]);
   const { state } = useContext(Context);
-  useEffect(() => {
-    UserService.getuserallreview(state.user.userName)
-      .then((res) => {
-        console.log(res);
-        setUserComment(res.data);
-      })
-      .catch((err) => {
-        console.log(err.response.data);
-      });
-  }, []);
 
-  console.log(UserCommentvalue);
+  useEffect(() => {
+    try {
+      UserService.getuserallreview(state.user.userName, setUserComment);
+    } catch (err) {
+      console.log(err);
+    }
+  }, [state.user.userName]);
+
   return (
     <>
-      <section>
-        <div className="left-1 divide-y divide-slate-100">
-          <List>
-            {UserCommentvalue.map((book) => (
-              <ListItem key={book._id} book={book} />
-            ))}
-          </List>
-        </div>
-      </section>
+      <div className="left-1 divide-y divide-slate-100">
+        <List>
+          {UserCommentvalue.map((book) => (
+            <ListItem key={book._id} book={book} />
+          ))}
+        </List>
+      </div>
     </>
   );
 };
