@@ -1,4 +1,6 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 const Alert = ({ color, msg }) => {
   const [showAlert, setShowAlert] = React.useState(true);
   return (
@@ -25,6 +27,11 @@ const Alert = ({ color, msg }) => {
       ) : null}
     </>
   );
+};
+
+Alert.propTypes = {
+  color: PropTypes.object.isRequired,
+  msg: PropTypes.string.isRequired,
 };
 
 export default Alert;

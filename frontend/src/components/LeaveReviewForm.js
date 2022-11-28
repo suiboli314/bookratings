@@ -134,4 +134,6 @@ const LeaveReviewForm = () => {
   );
 };
 
+LeaveReviewForm.propTypes = {};
+
 export default LeaveReviewForm;

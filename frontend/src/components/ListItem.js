@@ -1,8 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import { AiOutlineEdit } from "react-icons/ai/index.js";
 import { BiTrashAlt } from "react-icons/bi/index.js";
+import ReviewService from "../services/review.service.js";
+import Alert from "./Alert.js";
+import Loader from "./Loader.js";
 
-export default function ListItem({ book }) {
+export default function ListItem({ book, userName }) {
+  const [bookName, setbookName] = useState("");
+  const [reviewuserName, setuserName] = useState([]);
+  const [processing, setProcessing] = useState(false);
+  const [alertState, setAlertState] = useState({
+    show: false,
+    color: "green",
+    msg: "",
+  });
+  const deletereview = ({ bookName, userName }) => {
+    setProcessing(true);
+    ReviewService.deletereview({ bookName, userName })
+      .then((res) => {
+        console.log(res);
+        setProcessing(false);
+        setAlertState({
+          show: true,
+          color: "green",
+          msg: "Successfully leave a review!",
+        });
+      })
+      .catch((err) => {
+        console.log(err.response.data);
+        setProcessing(false);
+        setAlertState({
+          show: true,
+          color: "red",
+          msg: err.response.data || "Failed to leave a review",
+        });
+      });
+  };
+
   const star = (num) => {
     return (
       <svg
@@ -30,6 +64,11 @@ export default function ListItem({ book }) {
 
   return (
     <article>
+      <div className="flex justify-center">
+        {alertState.show ? (
+          <Alert color={alertState.color} msg={alertState.msg} />
+        ) : null}
+      </div>
       <div className="relative border-separate ml-4 mr-4 border rounded-lg border-spacing-x=y-2 border-b-2 border-sky-600">
         <div class="ml-4 flex items-center mb-4 space-x-4"></div>
         <div class="ml-4 flex items-center mb-1">
@@ -37,7 +76,10 @@ export default function ListItem({ book }) {
             {book.bookName}
           </h3>
           {getStars(book.rating)}
-          <button class="absolute right-2">
+          <button
+            class="absolute right-2"
+            onClick={() => deletereview(bookName, reviewuserName)}
+          >
             <BiTrashAlt />
           </button>
           <button>
@@ -47,6 +89,9 @@ export default function ListItem({ book }) {
         <p class="ml-10 font-light text-gray-500 dark:text-gray-400">
           {book.review}
         </p>
+        <div className="flex justify-center">
+          {processing ? <Loader /> : null}
+        </div>
       </div>
     </article>
   );

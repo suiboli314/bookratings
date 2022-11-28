@@ -14,5 +14,6 @@ router.post("/insertreview", reviewController.insert);
 router.post("/getbookallreview", reviewController.getBookAllReview);
 router.post("/getuserallreview", reviewController.getUserAllReview);
 router.post("/getuserbookreview", reviewController.getuserbookreview);
+router.delete("/deleteuserbookreview", reviewController.deleteuserbookreview);
 
 export default router;

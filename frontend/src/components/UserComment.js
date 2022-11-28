@@ -24,7 +24,11 @@ const UserComment = () => {
         <div className="left-1 divide-y divide-slate-100">
           <List>
             {UserCommentvalue.map((book) => (
-              <ListItem key={book._id} book={book} />
+              <ListItem
+                key={book._id}
+                book={book}
+                userName={state.user.userName}
+              />
             ))}
           </List>
         </div>
@@ -32,4 +36,7 @@ const UserComment = () => {
     </>
   );
 };
+
+UserComment.propTypes = {};
+
 export default UserComment;

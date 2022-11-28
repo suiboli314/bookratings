@@ -40,7 +40,7 @@ function Review() {
 
   /**
    * Given a book name, find all reviews of such a book
-   * 
+   *
    * @param {*} req body has a field of bookName
    * @returns all reviews of a given book
    */
@@ -111,6 +111,38 @@ function Review() {
       if (bookreview) {
         // book
         res.status(200).json(bookreview);
+      } else
+        res
+          .status(400)
+          .send("No book review found by given user for given book.");
+    } catch (err) {
+      console.error(err);
+      return res.status(400).send(err.message);
+    }
+  };
+
+  review.deleteuserbookreview = async (req, res) => {
+    try {
+      console.log("In here");
+      // Get book and user data
+      const { bookName, userName } = req.body;
+
+      console.log(bookName);
+      console.log(userName);
+      // Validate bookname and user data
+      if (!userName || !bookName) {
+        return res.status(400).send("All data is required");
+      }
+
+      // Validate if book and user exist in our database
+      const bookreview = await db_review.deleteOne({
+        userName: userName,
+        bookName: bookName,
+      });
+
+      if (bookreview) {
+        // sucessfull deleted
+        res.status(200).send("Review deleted.");
       } else
         res
           .status(400)
