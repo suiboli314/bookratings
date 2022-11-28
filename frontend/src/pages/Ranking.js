@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
-import Gallery from "../components/Gallery.jsx";
+import Gallery from "../components/Gallery/Gallery.jsx";
+import Pin from "../components/Pin/Pin.js";
 import { getAllBooks } from "../services/pin.service.js";
 import BasePage from "./BasePage.js";
-import "./card.css";
 
 function Ranking() {
   const [deviceWidth, setDeviceWidth] = useState(window.screen.width);
   const [books, setBookList] = useState([]);
-  const [scrollPercent, setScrollPercent] = useState(false);
 
   window.document.title = "Book Ranking";
 
@@ -25,56 +23,31 @@ function Ranking() {
   }, []);
 
   function setPinDimension(width = 200, height) {
-    let cardWidth = 250;
-    if (deviceWidth <= 650) cardWidth = deviceWidth / 2 - 16;
-    let cardWidthPerc = (cardWidth * 100) / width;
-    let cardHeight = (height * cardWidthPerc) / 100;
-    cardWidth = cardWidth + "px";
-    cardHeight = cardHeight + "px";
-    return [cardWidth, cardHeight];
+    let pinWidth = 250;
+    if (deviceWidth <= 650) pinWidth = deviceWidth / 2 - 16;
+    let pinWidthPerc = (pinWidth * 100) / width;
+    let pinHeight = (height * pinWidthPerc) / 100;
+    pinWidth = pinWidth + "px";
+    pinHeight = pinHeight + "px";
+    return [pinWidth, pinHeight];
   }
 
-  const allPins = //<></>;
-    books.map((card) => {
-      // const href =
-      //   window.location.pathname.slice(0, 5) === "/card"
-      //     ? card.id
-      //     : "card/" + card.id;
+  const allPins = books.map((pin) => {
+    const [pinWidth, pinHeight] = setPinDimension(pin.width, pin.height);
 
-      const [cardWidth, cardHeight] = setPinDimension(card.width, card.height);
-      
-      const imgAltText =
-        card.bookName + " | " + card.userName + "'s card - " + card.id;
-      return (
-        <div
-          className="card-p card-gutter"
-          key={card.bookName}
-          style={{ minHeight: card.fileURL === undefined ? "auto" : cardHeight, width: cardWidth }}
-        >
-          <div className="card-link">
-            {/* <NavLink to={"" + href} title={card.userName + "'s card"}> */}
-            {/* <img
-              src={card.fileURL}
-              alt={imgAltText}
-              style={{ minHeight: cardHeight, minWidth: cardWidth }}
-            /> */}
-            <div className="card-p-buttom">
-              {/* <img src={card.infoPhotoURL} alt={ imgAltText} /> */}
-              <p>{card.bookName}</p>
-            </div>
-            {/* </NavLink> */}
-          </div>
-        </div>
-      );
-    });
+    return <Pin pin={pin} width={pinWidth} height={pinHeight} />;
+  });
 
-  // console.log(allPins);
   return (
     <BasePage>
-      <h1> Here is recent book ranking.</h1>
-      <Gallery allPins={allPins}></Gallery>
+      <div className="grid justify-center">
+        <h1> Here is recent book ranking.</h1>
+        <Gallery allPins={allPins}></Gallery>
+      </div>
     </BasePage>
   );
 }
+
+Ranking.propTypes = {};
 
 export default Ranking;
