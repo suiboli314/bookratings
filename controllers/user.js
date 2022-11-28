@@ -13,7 +13,6 @@ function auth() {
 
     try {
       [client, db] = await connect();
-
       // Check if the user exists in the database
       const emailExists = await db.findOne({ email: email });
       const usernameExists = await db.findOne({ username: username });
@@ -24,20 +23,18 @@ function auth() {
         return res.status(409).send("Username Already Exist. Please Login");
 
       // Hash the password
-      const salt = await bcrypt.genSalt(Number(process.env.SALT));
-      const hashedPassword = await bcrypt.hash(password, salt);
 
       // Create the user token
       const token = jwt.sign({ email }, process.env.TOKEN_SECRET_KEY, {
         expiresIn: "2h",
       });
 
-      const result = db.insertOne({
+      const result = await db.insertOne({
         firstName: firstName,
         lastName: lastName,
         userName: username,
         email: email,
-        password: hashedPassword,
+        password: bcrypt.hashSync(password, bcrypt.genSaltSync()),
         token: token,
       });
 
@@ -48,10 +45,56 @@ function auth() {
     } finally {
       await client.close();
     }
-  };;
+  };
+
+  authenticate.reset = async (req, res) => {
+    const { emailOrUsername, password } = req.body; // Get the user data
+
+    // A regex expression to test if the given value is an email or username
+    let regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{1,8})+$/;
+    const data = regexEmail.test(emailOrUsername)
+      ? { email: emailOrUsername }
+      : { userName: emailOrUsername };
+
+    let client, db;
+    try {
+      [client, db] = await connect();
+
+      // update token
+      const result = await db.updateOne(data, {
+        $set: { password: bcrypt.hashSync(password, bcrypt.genSaltSync()) },
+      });
+
+      // TODO: Send the email verification link
+      return res.status(201).json(result);
+    } catch (err) {
+      return res.status(400).send(err.message);
+    } finally {
+      await client.close();
+    }
+  };
+
+  authenticate.delete = async (req, res) => {
+    const { emailOrUsername } = req.body;
+    // A regex expression to test if the given value is an email or username
+    let regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{1,8})+$/;
+    const data = regexEmail.test(emailOrUsername)
+      ? { email: emailOrUsername }
+      : { userName: emailOrUsername };
+
+    let client, db;
+    try {
+      [client, db] = await connect();
+      const result = await db.deleteOne(data);
+      return res.status(201).send(result);
+    } catch (err) {
+      return res.status(400).send(err.message);
+    } finally {
+      await client.close();
+    }
+  };
 
   authenticate.login = async (req, res) => {
-    console.log(req.body);
     // Get user data
     const { emailOrUsername, password } = req.body;
 
@@ -62,7 +105,7 @@ function auth() {
     }
 
     // A regex expression to test if the given value is an email or username
-    let regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    let regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{1,8})+$/;
     const data = regexEmail.test(emailOrUsername)
       ? { email: emailOrUsername }
       : { userName: emailOrUsername };
@@ -73,14 +116,15 @@ function auth() {
       // Validate if user exist in our database
       const user = await db.findOne(data);
 
-      if (user && (await bcrypt.compare(password, user.password))) {
+      if (user && (await bcrypt.compareSync(password, user.password))) {
         // Create token
         const email = user.email;
         const token = jwt.sign({ email }, process.env.TOKEN_SECRET_KEY, {
           expiresIn: "2h",
         });
 
-        // save user token
+        // update token
+        const result = await db.updateOne(data, { $set: { token: token } });
         user.token = token;
 
         return res.status(200).json(user);
@@ -94,7 +138,6 @@ function auth() {
     return res.status(400).send("Invalid Credentials");
   };
 
-  authenticate.logout = async (req, res) => {};
 
   return authenticate;
 }

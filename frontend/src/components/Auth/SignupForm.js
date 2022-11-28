@@ -162,5 +162,6 @@ const SignupForm = () => {
     </form>
   );
 };
+SignupForm.propTypes = {};
 
 export default SignupForm;

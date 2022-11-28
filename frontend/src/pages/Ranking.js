@@ -36,10 +36,10 @@ function Ranking() {
     return [pinWidth, pinHeight];
   }
 
-  const allPins = books.map((pin) => {
+  const allPins = books.map((pin, index) => {
     const [pinWidth, pinHeight] = setPinDimension(pin.width, pin.height);
 
-    return <Pin pin={pin} width={pinWidth} height={pinHeight} />;
+    return <Pin pin={pin} width={pinWidth} height={pinHeight} key={index} />;
   });
 
   return (

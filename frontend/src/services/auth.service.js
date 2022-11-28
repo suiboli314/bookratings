@@ -16,16 +16,26 @@ const signup = async ({ firstName, lastName, username, email, password }) => {
   });
 };
 /**
- * Handles the verify email request.
+ * Handles the reconnect session request.
  */
-const verify = (confirmationToken) => {
-  return fetch(`/verify/${confirmationToken}`, { method: "get" });
+const getuser = async ({ dispatch }) => {
+  const res = await fetch(`/getuser/`, { method: "get" });
+
+  if (!res.ok) throw new Error(res.body);
+  const user = await res.json();
+  dispatch({
+    type: "LOGIN",
+    payload: {
+      user: user,
+      token: user.token,
+    },
+  });
 };
 /**
  * Handles the login HTTP request to access your user profile
  * The data needed for each user is the username or email along with the password
  */
-const login = async ({ emailOrUsername, password }) => {
+const login = async ({ emailOrUsername, password, dispatch }) => {
   const res = await fetch(`/api/login`, {
     method: "post",
     headers: { "Content-Type": "application/json" },
@@ -34,21 +44,55 @@ const login = async ({ emailOrUsername, password }) => {
       password: password,
     }),
   });
+  if (!res.ok) throw new Error(res.body);
 
-  const userAtoken = await res.json();
-  localStorage.setItem("user", userAtoken);
-  return userAtoken;
+  const user = await res.json();
+  dispatch({
+    type: "LOGIN",
+    payload: {
+      user: user,
+      token: user.token,
+    },
+  });
 };
 
-const logout = (dispatch) => {
-  localStorage.removeItem("user");
+const logout = ({ dispatch }) => {
   dispatch({ type: "LOGOUT" });
+};
+
+const reset = async ({ emailOrUsername, password, dispatch }) => {
+  const res = await fetch(`/api/resetpass`, {
+    method: "post",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      emailOrUsername: emailOrUsername,
+      password: password,
+    }),
+  });
+
+  if (!res.ok) throw new Error(res.body);
+  logout({ dispatch: dispatch });
+};
+
+const deleteUser = async ({ state, dispatch }) => {
+  const emailOrUsername = state.user.email ? state.user.email : "";
+  const res = await fetch(`/api/deleteuser`, {
+    method: "post",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      emailOrUsername: emailOrUsername,
+    }),
+  });
+  if (!res.ok) throw new Error(res.body);
+  logout({ dispatch: dispatch });
 };
 
 const AuthService = {
   signup,
   login,
   logout,
+  reset,
+  deleteUser,
 };
 
 export default AuthService;

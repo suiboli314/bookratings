@@ -5,19 +5,24 @@
 const insertreview = async ({ bookName, userName, rating, review }) => {
   return await fetch(`/api/insertreview`, {
     method: "post",
-    body: {
-      bookName,
-      userName,
-      rating,
-      review,
-    },
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      bookName: bookName,
+      userName: userName,
+      rating: rating,
+      review: review,
+    }),
   });
 };
 
-const deletereview = ({ bookName, userName }) => {
-  return axios.delete(`/api/deleteuserbookreview`, {
-    bookName,
-    userName,
+const deletereview = async ({ bookName, userName }) => {
+  await fetch(`/api/deleteuserbookreview`, {
+    method: "delete",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      bookName: bookName,
+      userName: userName,
+    }),
   });
 };
 

@@ -5,7 +5,7 @@ export const getAllBooks = async (setBookList) => {
   });
   if (!res.ok) {
     // show empty
-    return { "respons": res.ok };
+    return { response: res.ok };
   }
   let books = await res.json();
   setBookList(books);

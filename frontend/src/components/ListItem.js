@@ -1,25 +1,24 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import PropTypes from "prop-types";
+
 import { AiOutlineEdit } from "react-icons/ai/index.js";
 import { BiTrashAlt } from "react-icons/bi/index.js";
+
 import ReviewService from "../services/review.service.js";
 import Alert from "./Alert.js";
-import Loader from "./Loader.js";
 
-export default function ListItem({ book, userName }) {
-  const [bookName, setbookName] = useState("");
-  const [reviewuserName, setuserName] = useState([]);
-  const [processing, setProcessing] = useState(false);
+export default function ListItem({ book, userName, setTime }) {
   const [alertState, setAlertState] = useState({
     show: false,
     color: "green",
     msg: "",
   });
-  const deletereview = ({ bookName, userName }) => {
-    setProcessing(true);
+
+  const deletereview = (bookName, userName) => {
+    console.log(bookName, userName);
     ReviewService.deletereview({ bookName, userName })
       .then((res) => {
-        console.log(res);
-        setProcessing(false);
+        setTime(new Date());
         setAlertState({
           show: true,
           color: "green",
@@ -28,7 +27,6 @@ export default function ListItem({ book, userName }) {
       })
       .catch((err) => {
         console.log(err.response.data);
-        setProcessing(false);
         setAlertState({
           show: true,
           color: "red",
@@ -67,7 +65,7 @@ export default function ListItem({ book, userName }) {
           <Alert color={alertState.color} msg={alertState.msg} />
         ) : null}
       </div>
-      <div className="relative border-separate ml-4 mr-4 border rounded-lg border-spacing-x=y-2 border-b-2 border-sky-600">
+      <div className="relative border-separate ml-4 mr-4 border rounded-lg border-spacing-x=y-2 border-b-2 border-sky-600 dark:bg-slate-800">
         <div className="ml-4 flex items-center mb-4 space-x-4"></div>
         <div className="ml-4 flex items-center mb-1">
           <h3 className="ml-4 text-sm font-semibold text-gray-900 dark:text-white">
@@ -75,22 +73,28 @@ export default function ListItem({ book, userName }) {
           </h3>
           {getStars(book.rating)}
           <button
-            class="absolute right-2"
-            onClick={() => deletereview(bookName, reviewuserName)}
+            className="absolute right-2 btn"
+            onClick={() => {
+              deletereview(book.bookName, userName);
+            }}
           >
             <BiTrashAlt />
           </button>
-          <button>
+          <button className="btn">
             <AiOutlineEdit />
           </button>
         </div>
         <p className="ml-10 font-light text-gray-500 dark:text-gray-400">
           {book.review}
         </p>
-        <div className="flex justify-center">
-          {processing ? <Loader /> : null}
-        </div>
       </div>
     </article>
   );
 }
+
+
+ListItem.propTypes = {
+  book: PropTypes.string.isRequired,
+  userName: PropTypes.string.isRequired,
+  setTime: PropTypes.func.isRequired,
+};

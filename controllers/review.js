@@ -78,7 +78,8 @@ function Review() {
     let client, db_review;
     try {
       [client, db_review] = await database.collection(COLLECTION_NAME_REVIEW);
-
+      console.log("client", client);
+      console.log("\ndb ", db_review);
       // Validate if user exist in our database
       var alluserreview = await db_review
         .find({ userName: userName })
@@ -122,35 +123,33 @@ function Review() {
   };
 
   review.deleteuserbookreview = async (req, res) => {
+    // Get book and user data
+    const { bookName, userName } = req.body;
+
+    // Validate bookname and user data
+    if (!userName || !bookName)
+      return res.status(400).send("All data is required");
+
+    let client, db_review;
     try {
-      console.log("In here");
-      // Get book and user data
-      const { bookName, userName } = req.body;
-
-      console.log(bookName);
-      console.log(userName);
-      // Validate bookname and user data
-      if (!userName || !bookName) {
-        return res.status(400).send("All data is required");
-      }
-
+      [client, db_review] = await database.collection(COLLECTION_NAME_REVIEW);
+      
       // Validate if book and user exist in our database
       const bookreview = await db_review.deleteOne({
         userName: userName,
         bookName: bookName,
       });
 
-      if (bookreview) {
-        // sucessfull deleted
-        res.status(200).send("Review deleted.");
-      } else
-        res
-          .status(400)
-          .send("No book review found by given user for given book.");
+      if (bookreview) return res.status(200).send("Review deleted.");
     } catch (err) {
       console.error(err);
       return res.status(400).send(err.message);
+    } finally {
+      await client.close();
     }
+    return res
+      .status(400)
+      .send("No book review found by given user for given book.");
   };
 
   return review;

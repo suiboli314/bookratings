@@ -7,6 +7,8 @@ const router = express.Router();
 // Map the `signup` request to the signup function
 router.post("/signup", userController.signup);
 router.post("/login", userController.login);
+router.post("/resetpass", userController.reset);
+router.post("/deleteuser", userController.delete);
 router.post("/insertbook", bookController.insert);
 router.post("/getbook", bookController.get);
 router.get("/getallbooks", bookController.getAllBooks);

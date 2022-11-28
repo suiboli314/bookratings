@@ -5,6 +5,7 @@ import List from "./List.js";
 import ListItem from "./ListItem.js";
 const UserComment = () => {
   const [UserCommentvalue, setUserComment] = useState([]);
+  const [timestamp, setTime] = useState(new Date());
   const { state } = useContext(Context);
 
   useEffect(() => {
@@ -13,7 +14,7 @@ const UserComment = () => {
     } catch (err) {
       console.log(err);
     }
-  }, [state.user.userName]);
+  }, [state.user.userName, timestamp]);
 
   return (
     <>
@@ -25,6 +26,7 @@ const UserComment = () => {
                 key={book._id}
                 book={book}
                 userName={state.user.userName}
+                setTime={setTime}
               />
             ))}
           </List>

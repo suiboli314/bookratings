@@ -12,6 +12,7 @@ import Login from "./pages/Login.js";
 import Home from "./pages/Home.js";
 import Ranking from "./pages/Ranking.js";
 import LeaveaReview from "./pages/LeaveReview.js";
+import ResetPass from "./pages/ResetPassword.js"
 
 const RequireAuth = ({ children }) => {
   const { state } = useContext(Context);
@@ -24,7 +25,6 @@ const OnlyNotAuth = ({ children }) => {
 };
 
 const App = () => {
-  localStorage.clear();
   const { state, dispatch } = useContext(Context);
 
   useEffect(() => {
@@ -73,6 +73,14 @@ const App = () => {
       element: (
         <RequireAuth>
           <LeaveaReview />
+        </RequireAuth>
+      ),
+    },
+    {
+      path: "/resetpass",
+      element: (
+        <RequireAuth>
+          <ResetPass />
         </RequireAuth>
       ),
     },

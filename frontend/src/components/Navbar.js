@@ -6,20 +6,31 @@ import { MdMenuOpen, MdClose } from "react-icons/md/index.js";
 import { Context } from "../context.js";
 import AuthService from "../services/auth.service.js";
 
-const Actions = ({ auth, customStyle, dispatch }) => {
+const Actions = ({ auth, customStyle, state, dispatch }) => {
   return (
     <>
       {auth ? (
         <>
           <Link to="/home" className={customStyle}>
-            Home
+            <>{state.user.userName}</>'s Home
           </Link>
           <Link to="/leaveareview" className={customStyle}>
             Leave Review
           </Link>
+          <Link to="/resetPass" className={customStyle}>
+            Reset Password
+          </Link>
           <button
             className={customStyle + " btn"}
-            onClick={() => AuthService.logout(dispatch)}
+            onClick={async () => {
+              await AuthService.deleteUser({ state, dispatch });
+            }}
+          >
+            Delete User
+          </button>
+          <button
+            className={customStyle + " btn"}
+            onClick={() => AuthService.logout({ dispatch })}
           >
             Logout
           </button>
@@ -69,6 +80,7 @@ const Navbar = () => {
               <Actions
                 auth={state.auth}
                 customStyle={sidstyle}
+                state={state}
                 dispatch={dispatch}
               />
             </div>
@@ -104,6 +116,7 @@ const Navbar = () => {
                 </Link>
                 <Actions
                   auth={state.auth}
+                  state={state}
                   dispatch={dispatch}
                   customStyle={mainstyle}
                 />

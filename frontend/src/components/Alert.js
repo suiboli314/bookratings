@@ -7,11 +7,7 @@ const Alert = ({ color, msg }) => {
     <>
       {showAlert ? (
         <div
-          className={
-            "text-black px-6 py-4 border-0 rounded relative mb-4 bg-" +
-            color +
-            "-500"
-          }
+          className={`text-black px-6 py-4 border-0 rounded relative mb-4 bg-pink-${color}`}
         >
           <span className="text-xl inline-block mr-5 align-middle">
             <i className="fas fa-bell" />
@@ -30,7 +26,7 @@ const Alert = ({ color, msg }) => {
 };
 
 Alert.propTypes = {
-  color: PropTypes.object.isRequired,
+  color: PropTypes.string.isRequired,
   msg: PropTypes.string.isRequired,
 };
 

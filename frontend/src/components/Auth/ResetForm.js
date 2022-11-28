@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { GoLock } from "react-icons/go/index.js";
 
 import { Context } from "../../context.js";
@@ -10,7 +10,7 @@ const LoginForm = () => {
   const [emailOrUsername, setEmailOrUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const { dispatch } = useContext(Context);
+  const { state, dispatch } = useContext(Context);
 
   const [processing, setProcessing] = useState(false);
   const [alertState, setAlertState] = useState({
@@ -21,17 +21,16 @@ const LoginForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    console.log(emailOrUsername, password);
     try {
-      await AuthService.login({ emailOrUsername, password, dispatch });
+      await AuthService.reset({ emailOrUsername, password, dispatch });
       setProcessing(false);
     } catch (err) {
       setProcessing(false);
       setAlertState({
         show: true,
         color: "500",
-        msg: //err.message ||
-          "Invalid Credential",
+        msg: err.message || "Failed to Process",
       });
     }
   };
@@ -53,10 +52,10 @@ const LoginForm = () => {
           type="email"
           autoComplete="email"
           required
-          autoFocus
-          className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm"
-          placeholder="Email address"
-          value={emailOrUsername}
+          disabled
+          className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none invalid:border-pink-500 invalid:text-pink-600 sm:text-sm"
+          placeholder={state.user.email}
+          value={state.user.email}
           onChange={(e) => setEmailOrUsername(e.target.value)}
         />
 
@@ -69,8 +68,9 @@ const LoginForm = () => {
           type="password"
           autoComplete="current-password"
           required
+          autoFocus
           className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm"
-          placeholder="Password"
+          placeholder="Reset New Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
@@ -86,7 +86,7 @@ const LoginForm = () => {
             aria-hidden="true"
           />
         </span>
-        Login
+        Reset
       </button>
 
       <div className="flex justify-center">

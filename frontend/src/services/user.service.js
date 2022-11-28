@@ -4,10 +4,10 @@ const getuserallreview = async (userName, setUserComment) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ userName: userName }),
   });
-  if (!res.ok) 
+  if (!res.ok)
     // show empty
-    return { respons: res.ok };
-  
+    return { response: res.ok };
+
   let comments = await res.json();
   setUserComment(comments);
 };
