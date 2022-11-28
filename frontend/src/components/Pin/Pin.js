@@ -1,33 +1,39 @@
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import PropTypes from "prop-types";
+import "./pin.css";
 
-import PinImage from "./PinImage";
-import PinInfo from "./PinInfo";
+const Pin = ({ pin, width, height }) => {
+  let title = pin.bookName;
+  let authors = pin.authors;
+  let description = pin.infoDescription;
 
-const Pin = ({
-  pinInfo,
-  pinUserInfo,
-  fileInfo,
-  pinTags,
-  isLoading,
-  pinDelete,
-}) => {
-  let loading = <></>;
-
-  if (isLoading || pinDelete) {
-    loading = <AiOutlineLoading3Quarters />;
-  }
-
-  let currentMode = (
-    <PinInfo pinInfo={pinInfo} pinUserInfo={pinUserInfo} pinTags={pinTags} />
-  );
+  title = title ? <p>{title}</p> : <></>;
+  authors = authors ? <p>Author: <br /> {authors}</p> : <></>;
+  description = description ? <p>{description}</p> : <></>;
 
   return (
-    <div>
-      {loading}
-      <PinImage fileInfo={fileInfo} />
-      {currentMode}
+    <div
+      className="pin-p pin-gutter"
+      key={title + " by " + authors}
+      style={{
+        minHeight: pin.fileURL ? "auto" : height,
+        width: width,
+      }}
+    >
+      <div className="pin-link">
+        <div className="pin-p-desc">
+          {title}
+          {authors}
+          {description}
+        </div>
+      </div>
     </div>
   );
+};
+
+Pin.propTypes = {
+  pin: PropTypes.object.isRequired,
+  width: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
 };
 
 export default Pin;
