@@ -1,7 +1,8 @@
-import React, { useState } from "react";
-import Loader from "./Loader.js";
-import Alert from "./Alert.js";
-import AuthService from "../services/auth.service.js";
+import { useState } from "react";
+
+import Loader from "../Loader.js";
+import Alert from "../Alert.js";
+import AuthService from "../../services/auth.service.js";
 
 const SignupForm = () => {
   const [firstName, setFirstName] = useState("");

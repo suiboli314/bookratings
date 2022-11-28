@@ -1,8 +1,12 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+
+import logo from "../assets/logo.png";
+
 import Gallery from "../components/Gallery/Gallery.jsx";
 import Pin from "../components/Pin/Pin.js";
-import { getAllBooks } from "../services/pin.service.js";
 import BasePage from "./BasePage.js";
+
+import { getAllBooks } from "../services/pin.service.js";
 
 function Ranking() {
   const [deviceWidth, setDeviceWidth] = useState(window.screen.width);
@@ -41,7 +45,9 @@ function Ranking() {
   return (
     <BasePage>
       <div className="grid justify-center">
-        <h1> Here is recent book ranking.</h1>
+        <h1>
+          <img className="mx-auto h-12 w-auto" src={logo} alt="Logo" />
+        </h1>
         <Gallery allPins={allPins}></Gallery>
       </div>
     </BasePage>

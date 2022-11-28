@@ -5,7 +5,7 @@ import Footer from "./Footer.js";
 function BasePage({ children }) {
   return (
     <div className="BasePage">
-      <NavBar auth={false} />
+      <NavBar />
       <main>{children}</main>
       <Footer></Footer>
     </div>
