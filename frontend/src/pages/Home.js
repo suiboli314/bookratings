@@ -5,12 +5,10 @@ import BasePage from "./BasePage.js";
 
 const Home = () => {
   const { state } = useContext(Context);
-  console.log(state);
-  console.log(state.user.userName);
   return (
     <>
       <BasePage>
-        <section class="py-24 2xl:py-44 bg-blueGray-100 rounded-t-10xl overflow-hidden">
+        <section className="py-24 2xl:py-44 bg-blueGray-100 rounded-t-10xl overflow-hidden">
           <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-md w-full">
               <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">

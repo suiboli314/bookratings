@@ -1,46 +1,48 @@
-import axios from "axios"; // HTTP Client
-
-// const API_URL = "http://0.0.0.0:4000"; // The API endpoint to communicate with the server
-
 /**
  * Handles the signup HTTP request to add a new user to the database
  * The data needed for each user is First Name, Last Name, Username, Email, and Password
  */
-const signup = ({ firstName, lastName, username, email, password }) => {
-  return axios.post(`/api/signup`, {
-    firstName,
-    lastName,
-    username,
-    email,
-    password,
+const signup = async ({ firstName, lastName, username, email, password }) => {
+  return await fetch(`/api/signup`, {
+    method: "post",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      firstName: firstName,
+      lastName: lastName,
+      username: username,
+      email: email,
+      password: password,
+    }),
   });
 };
 /**
  * Handles the verify email request.
  */
 const verify = (confirmationToken) => {
-  return axios.get(`/verify/${confirmationToken}`);
+  return fetch(`/verify/${confirmationToken}`, { method: "get" });
 };
 /**
  * Handles the login HTTP request to access your user profile
  * The data needed for each user is the username or email along with the password
  */
-const login = ({ emailOrUsername, password }) => {
-  return axios
-    .post(`/api/login`, { emailOrUsername, password })
-    .then((res) => {
-      /**
-       * If successfully logged in, store the user data, inlucding the token, in the localStorage
-       */
-      localStorage.setItem("user", JSON.stringify(res.data));
-      console.log(res.data);
-      return res.data;
-    })
-    ;
+const login = async ({ emailOrUsername, password }) => {
+  const res = await fetch(`/api/login`, {
+    method: "post",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      emailOrUsername: emailOrUsername,
+      password: password,
+    }),
+  });
+
+  const userAtoken = await res.json();
+  localStorage.setItem("user", userAtoken);
+  return userAtoken;
 };
 
-const logout = () => {
+const logout = (dispatch) => {
   localStorage.removeItem("user");
+  dispatch({ type: "LOGOUT" });
 };
 
 const AuthService = {

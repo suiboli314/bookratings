@@ -1,12 +1,25 @@
-import { MongoClient } from 'mongodb'
+import { MongoClient } from "mongodb";
 
 function database() {
   const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017";
-    //const MONGO_URI = process.env.MONGO_URI;
-    console.log("MONGO_URI: ", MONGO_URI);
-  const client = new MongoClient(MONGO_URI, { useNewUrlParser: true });
-  client.connect()
-  const db = client.db("test")
+  const DB_NAME = "test";
+
+  const db = {};
+
+  db.collection = async (COLLECTION_NAME) => {
+    try {
+      const client = new MongoClient(MONGO_URI);
+      await client.connect();
+
+      const db = client.db(DB_NAME);
+      return [client, db.collection(COLLECTION_NAME)];
+    } catch (e) {
+      const error = `connect to ${MONGO_URI}.${DB_NAME}.${COLLECTION_NAME} collection error: ${e} `;
+      console.log(error);
+      throw e;
+    }
+  };
+
   return db;
 }
 

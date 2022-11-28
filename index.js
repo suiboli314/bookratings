@@ -19,23 +19,9 @@ app
   .use(express.urlencoded({ extended: false }))
   .use(cookieParser());
 
-// const corsOptions = {
-//   origin: (origin, callback) => {
-//     callback(null, true);
-//   },
-//   methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
-//   allowedHeaders: ["Access-Control-Allow-Origin", "Origin", "X-Requested-With", "Content-Type", "Accept", "Authorization"],
-//   credentials: true
-// };
-
-// app.options('*', cors(corsOptions));
-// app.use(cors(corsOptions));
-
-console.log(path.resolve(__dirname, "./fronend/build"));
 app.use(express.static(path.resolve(__dirname, "./frontend/build")));
 
 // Register the application main router
 app.use("/api", router);
-//app.use("/user", userrouter);
 
 export default app;

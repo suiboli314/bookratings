@@ -41,7 +41,7 @@ export default function ListItem({ book, userName }) {
     return (
       <svg
         aria-hidden="true"
-        class="w-5 h-5 text-yellow-400"
+        className="w-5 h-5 text-yellow-400"
         fill="currentColor"
         viewBox="0 0 20 20"
         xmlns="http://www.w3.org/2000/svg"
@@ -55,10 +55,8 @@ export default function ListItem({ book, userName }) {
 
   const getStars = (rating) => {
     let stars = [];
-    for (let i = 0; i < rating; i++) {
-      stars.push(star(i));
-    }
-    console.log("stars: " + stars.length);
+    for (let i = 0; i < rating; i++) stars.push(star(i));
+
     return stars;
   };
 
@@ -70,9 +68,9 @@ export default function ListItem({ book, userName }) {
         ) : null}
       </div>
       <div className="relative border-separate ml-4 mr-4 border rounded-lg border-spacing-x=y-2 border-b-2 border-sky-600">
-        <div class="ml-4 flex items-center mb-4 space-x-4"></div>
-        <div class="ml-4 flex items-center mb-1">
-          <h3 class="ml-4 text-sm font-semibold text-gray-900 dark:text-white">
+        <div className="ml-4 flex items-center mb-4 space-x-4"></div>
+        <div className="ml-4 flex items-center mb-1">
+          <h3 className="ml-4 text-sm font-semibold text-gray-900 dark:text-white">
             {book.bookName}
           </h3>
           {getStars(book.rating)}
@@ -86,7 +84,7 @@ export default function ListItem({ book, userName }) {
             <AiOutlineEdit />
           </button>
         </div>
-        <p class="ml-10 font-light text-gray-500 dark:text-gray-400">
+        <p className="ml-10 font-light text-gray-500 dark:text-gray-400">
           {book.review}
         </p>
         <div className="flex justify-center">
