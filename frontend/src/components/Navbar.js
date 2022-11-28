@@ -12,12 +12,12 @@ const Actions = ({ auth, customStyle }) => {
           <Link to="/ranking" className={customStyle}>
             Ranking
           </Link>
-          <button type="button" className={customStyle}>
-            Logout
-          </button>
           <Link to="/leaveareview" className={customStyle}>
             Leave Review
           </Link>
+          <button type="button" className={customStyle}>
+            Logout
+          </button>
         </>
       ) : (
         <>
