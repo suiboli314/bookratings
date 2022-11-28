@@ -1,4 +1,6 @@
 import React from "react";
+import { AiOutlineEdit } from "react-icons/ai/index.js";
+import { BiTrashAlt } from "react-icons/bi/index.js";
 
 export default function ListItem({ book }) {
   const star = (num) => {
@@ -28,13 +30,19 @@ export default function ListItem({ book }) {
 
   return (
     <article>
-      <div className="border-separate ml-4 mr-4 border rounded-lg border-spacing-x=y-2 border-b-2 border-sky-600">
+      <div className="relative border-separate ml-4 mr-4 border rounded-lg border-spacing-x=y-2 border-b-2 border-sky-600">
         <div class="ml-4 flex items-center mb-4 space-x-4"></div>
         <div class="ml-4 flex items-center mb-1">
           <h3 class="ml-4 text-sm font-semibold text-gray-900 dark:text-white">
             {book.bookName}
           </h3>
           {getStars(book.rating)}
+          <button class="absolute right-2">
+            <BiTrashAlt />
+          </button>
+          <button>
+            <AiOutlineEdit />
+          </button>
         </div>
         <p class="ml-10 font-light text-gray-500 dark:text-gray-400">
           {book.review}
