@@ -69,3 +69,16 @@ And the frontend will run on http://localhost:3000
 
 # Thanks
 Thanks to prof. [John Guerra](https://johnguerra.co/classes/webDevelopment_fall_2022/)
+
+
+## Feedback by Taohan Zhu
+Nice and clean UI and amazing work. I tried the website and most functions were clear and easy to use. However, I would like to provide feedback on the following items.
+1. Unused files. I noticed that the website was deployed to render.com, but you still have `vercel.json` in the dir. It would be better to remove it if it's no longer in use.
+2. Signup. After signup, the user remain in the sign up page instead of redirecting to the main page. It'd be much better if we could direct to home page instead.
+3. Delete Account. That's a very powerful and useful feature to have. However, it would be much better to have a pop-up alert after an user click on it. As I accidentally delete my account while touring around, it was an unpleasant user experience.
+4. Leave a Review. In my understanding, that's the main function of your website. While trying to use it, I encountered a form with 3 inputs, but I have no idea what the second input (number) is for. It'd be great to have explanation on the side.
+5. Misc. 
+  5.1 User session is not maintained. I discovered that I got 404 whenever I refreshed any of the pages and that I have to log in again.
+  5.2 User's review. I submitted one review. But I was not able to find my review anyhow. It would be great if users could search or have their reviews shown in their own home page.
+
+
