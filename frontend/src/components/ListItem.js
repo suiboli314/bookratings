@@ -64,33 +64,33 @@ export default function ListItem({ book, userName, setTime }) {
           <Alert color={alertState.color} msg={alertState.msg} />
         ) : null}
       </div>
-      <div className="relative border-separate ml-4 mr-4 border rounded-lg border-spacing-x=y-2 border-b-2 border-sky-600 dark:bg-slate-800">
-        <div className="ml-4 flex items-center mb-4 space-x-4"></div>
+      <div className="relative m-9 mb-8 pb-3 border rounded-lg border-b-2 border-sky-600 dark:bg-slate-800">
+        <div className="flex items-center mb-4 space-x-4"></div>
         <div className="ml-4 flex items-center mb-1">
           <h3 className="ml-4 text-sm font-semibold text-gray-900 dark:text-white">
             {book.bookName}
           </h3>
           {getStars(book.rating)}
+
+          <button className="flex pl-2 space-x-4 dark:text-white">
+            <AiOutlineEdit />
+          </button>
           <button
-            className="absolute right-2 btn"
+            className="flex pl-2 dark:text-white btn"
             onClick={() => {
               deletereview(book.bookName, userName);
             }}
           >
             <BiTrashAlt />
           </button>
-          <button className="btn">
-            <AiOutlineEdit />
-          </button>
         </div>
-        <p className="ml-10 font-light text-gray-500 dark:text-gray-400">
+        <p className="ml-10 font-light text-gray-500 dark:text-white">
           {book.review}
         </p>
       </div>
     </article>
   );
 }
-
 
 ListItem.propTypes = {
   book: PropTypes.string.isRequired,

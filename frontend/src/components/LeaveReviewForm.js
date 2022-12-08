@@ -58,13 +58,15 @@ const LeaveReviewForm = () => {
           <label htmlFor="bookName" className="sr-only">
             bookName
           </label>
+          <span class="block text-sm font-medium text-slate-700">
+            Book Name
+          </span>
           <input
             id="bookName"
             name="bookName"
             type="text"
             autoComplete="bookName"
-            className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm"
-            placeholder="Book Name"
+            className="rounded flex w-full px-3 py-2 my-1 mb-8 border-seperate border-spacing-y-1 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm"
             value={bookName}
             onChange={(e) => setbookName(e.target.value)}
             required
@@ -74,13 +76,16 @@ const LeaveReviewForm = () => {
           <label htmlFor="rating" className="sr-only">
             rating
           </label>
+          <span class="block text-sm font-medium text-slate-700">
+            Book Score (Please choose from 0 to 5)
+          </span>
           <input
             id="rating"
             name="rating"
             type="number"
             autoComplete="rating"
             required
-            className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm"
+            className="rounded relative block w-full px-3 py-2 my-1 mb-8 border-seperate border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm"
             placeholder="Score"
             value={rating}
             onChange={(e) => setRating(e.target.value)}
@@ -90,17 +95,16 @@ const LeaveReviewForm = () => {
           <label htmlFor="review" className="sr-only">
             Review
           </label>
-          <input
-            id="review"
-            name="review"
-            type="text"
-            autoComplete="review"
-            required
-            className="appearance-none rounded-none relative block w-full px-3 py-2px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm"
-            placeholder="Your Thoughts:"
+          <span class="block text-sm font-medium text-slate-700">
+            Your Thoughts:
+          </span>
+          <textarea
             value={review}
             onChange={(e) => setReview(e.target.value)}
-          />
+            className="appearance-none rounded relative block w-full px-3 py-2 h-40 border-seperate border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm"
+          >
+            {/* <input value={review} onChange={(e) => setReview(e.target.value)} /> */}
+          </textarea>
         </div>
       </div>
       <div>

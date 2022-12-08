@@ -32,9 +32,7 @@ const Pin = ({ pin, width, height }) => {
         </span>
       </div>
       <div className="pin-link">
-        <div className="pin-p-desc">
-          <div className="pin-p-desc text-sky-400">{authors}</div>
-        </div>
+        <div className="pin-p-desc text-sky-400">{authors}</div>
       </div>
     </div>
   );
