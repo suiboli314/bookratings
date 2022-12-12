@@ -67,15 +67,19 @@ export default function ListItem({ book, userName, setTime }) {
       <div className="relative m-9 mb-8 pb-3 border rounded-lg border-b-2 border-sky-600 dark:bg-slate-800">
         <div className="flex items-center mb-4 space-x-4"></div>
         <div className="ml-4 flex items-center mb-1">
-          <h3 className="ml-4 text-sm font-semibold text-gray-900 dark:text-white">
+          <h1 className="ml-4 text-sm font-semibold text-gray-900 dark:text-white">
             {book.bookName}
-          </h3>
+          </h1>
           {getStars(book.rating)}
 
-          <button className="flex pl-2 space-x-4 dark:text-white">
+          <button
+            aria-label="edit"
+            className="flex pl-2 space-x-4 dark:text-white"
+          >
             <AiOutlineEdit />
           </button>
           <button
+            aria-label="delete"
             className="flex pl-2 dark:text-white btn"
             onClick={() => {
               deletereview(book.bookName, userName);

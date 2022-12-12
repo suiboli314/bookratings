@@ -1,7 +1,9 @@
 import PropTypes from "prop-types";
 
 export default function List({ children }) {
-  return <ul className="left-1 divide-y divide-slate-100">{children}</ul>;
+  return (
+    <article className="left-1 divide-y divide-slate-100">{children}</article>
+  );
 }
 
 List.propTypes = {
