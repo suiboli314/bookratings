@@ -3,11 +3,12 @@ import PropTypes from "prop-types";
 
 const Alert = ({ color, msg }) => {
   const [showAlert, setShowAlert] = React.useState(true);
+  console.log(color);
   return (
     <>
       {showAlert ? (
         <div
-          className={`text-black px-6 py-4 border-0 rounded relative mb-4 bg-pink-${color}`}
+          className={`text-black bg-${color} px-6 py-4 border-0 rounded relative mb-4 `}
         >
           <span className="text-xl inline-block mr-5 align-middle">
             <i className="fas fa-bell" />

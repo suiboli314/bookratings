@@ -13,7 +13,7 @@ const LeaveReviewForm = () => {
   const { state } = useContext(Context);
   useEffect(() => {
     setuserName(state.user.userName);
-  }, []);
+  }, [state.user.userName]);
 
   const [processing, setProcessing] = useState(false);
   const [alertState, setAlertState] = useState({
@@ -31,7 +31,7 @@ const LeaveReviewForm = () => {
         setProcessing(false);
         setAlertState({
           show: true,
-          color: "green",
+          color: "green-500",
           msg: "Successfully leave a review!",
         });
       })
@@ -40,7 +40,7 @@ const LeaveReviewForm = () => {
         setProcessing(false);
         setAlertState({
           show: true,
-          color: "red",
+          color: "pink-500",
           msg: err.response.data || "Failed to leave a review",
         });
       });
@@ -102,9 +102,7 @@ const LeaveReviewForm = () => {
             value={review}
             onChange={(e) => setReview(e.target.value)}
             className="appearance-none rounded relative block w-full px-3 py-2 h-40 border-seperate border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm"
-          >
-            {/* <input value={review} onChange={(e) => setReview(e.target.value)} /> */}
-          </textarea>
+          ></textarea>
         </div>
       </div>
       <div>

@@ -6,43 +6,95 @@ import { MdMenuOpen, MdClose } from "react-icons/md/index.js";
 import { Context } from "../context.js";
 import AuthService from "../services/auth.service.js";
 
+import { AiOutlineLogin } from "react-icons/ai/index.js";
+import { AiOutlineUserAdd } from "react-icons/ai/index.js";
+import { AiOutlineRead } from "react-icons/ai/index.js";
+import { AiOutlineLogout } from "react-icons/ai/index.js";
+import { AiOutlineUserDelete } from "react-icons/ai/index.js";
+import { BiReset } from "react-icons/bi/index.js";
+import { BiUserCircle } from "react-icons/bi/index.js";
+import { FiEdit } from "react-icons/fi/index.js";
+
 const Actions = ({ auth, customStyle, state, dispatch }) => {
   return (
     <>
       {auth ? (
         <>
-          <Link to="/home" className={customStyle}>
-            <>{state.user.userName}</>'s Home
+          <div className="flex content-center">
+            <Link to="/home" className={customStyle}>
+            <span className="flex space-x-1">
+              <div className="flex self-center">
+                <BiUserCircle />
+              </div>
+              <div>
+                <>{state.user.userName}</>'s Home
+              </div>
+            </span>
           </Link>
           <Link to="/leaveareview" className={customStyle}>
-            Leave Review
+            <span className="flex space-x-1">
+              <div className="flex self-center">
+                <FiEdit />
+              </div>
+              <div>Leave Review</div>
+            </span>
           </Link>
           <Link to="/resetPass" className={customStyle}>
-            Reset Password
-          </Link>
-          <button
-            className={customStyle + " btn"}
-            onClick={async () => {
-              await AuthService.deleteUser({ state, dispatch });
-            }}
-          >
-            Delete User
-          </button>
-          <button
-            className={customStyle + " btn"}
-            onClick={() => AuthService.logout({ dispatch })}
-          >
-            Logout
-          </button>
+            <span className="flex space-x-1">
+              <div className="flex self-center">
+                <BiReset />
+              </div>
+              <div>Reset Password</div>
+            </span>
+            </Link>
+            <button
+              className={customStyle + " btn"}
+              onClick={async () => {
+                await AuthService.deleteUser({ state, dispatch });
+              }}
+            >
+              <div className="flex space-x-1">
+                <div className="flex self-center">
+                  <AiOutlineUserDelete />
+                </div>
+                <div>Delete User</div>
+              </div>
+            </button>
+            <button
+              className={customStyle + " btn"}
+              onClick={() => AuthService.logout({ dispatch })}
+            >
+              <div className="flex space-x-1">
+                <div className="flex space-x-1">
+                  <div className="flex self-center">
+                    <AiOutlineLogout />
+                  </div>
+                  <div>Log Out</div>
+                </div>
+              </div>
+            </button>
+          </div>
         </>
       ) : (
         <>
-          <Link to="/login" className={customStyle}>
-            Login
-          </Link>
-          <Link to="/signup" className={customStyle}>
-            Sign Up
-          </Link>
+          <div className="flex content-center">
+            <Link to="/login" className={customStyle}>
+              <div className="flex space-x-1">
+                <div className="flex self-center">
+                  <AiOutlineLogin />
+                </div>
+                <div>Login</div>
+              </div>
+            </Link>
+            <Link to="/signup" className={customStyle}>
+              <div className="flex space-x-1">
+                <div className="flex self-center">
+                  <AiOutlineUserAdd />
+                </div>
+                <div>Sign Up</div>
+              </div>
+            </Link>
+          </div>
         </>
       )}
     </>
@@ -64,14 +116,19 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="bg-gray-800 fixed w-full z-20 top-0 left-0">
+      <nav className="bg-sky-900 fixed w-full z-20 top-0 left-0">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="relative flex items-center justify-between h-16">
             <div className="flex items-center">
               <div className="hidden md:block">
                 <div className="ml-10 flex items-baseline space-x-4">
                   <Link to="/" className={mainstyle}>
-                    Browsing
+                    <div className="flex space-x-1">
+                      <div className="flex self-center">
+                        <AiOutlineRead />
+                      </div>
+                      <div>Browsing</div>
+                    </div>
                   </Link>
                 </div>
               </div>

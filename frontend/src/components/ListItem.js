@@ -20,15 +20,15 @@ export default function ListItem({ book, userName, setTime }) {
         setTime(new Date());
         setAlertState({
           show: true,
-          color: "green",
-          msg: "Successfully leave a review!",
+          color: "green-500",
+          msg: "Successfully delete a review!",
         });
       })
       .catch((err) => {
         console.log(err.response.data);
         setAlertState({
           show: true,
-          color: "red",
+          color: "pink-500",
           msg: err.response.data || "Failed to leave a review",
         });
       });

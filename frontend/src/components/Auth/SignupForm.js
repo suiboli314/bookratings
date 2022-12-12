@@ -27,7 +27,7 @@ const SignupForm = () => {
         setProcessing(false);
         setAlertState({
           show: true,
-          color: "green",
+          color: "green-500",
           msg: "Successfully created account, please login.",
         });
       })
@@ -36,7 +36,7 @@ const SignupForm = () => {
         setProcessing(false);
         setAlertState({
           show: true,
-          color: "red",
+          color: "pink-500",
           msg: err.response.data || "Failed to create the account",
         });
       });

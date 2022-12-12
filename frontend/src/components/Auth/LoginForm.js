@@ -15,7 +15,7 @@ const LoginForm = () => {
   const [processing, setProcessing] = useState(false);
   const [alertState, setAlertState] = useState({
     show: false,
-    color: "400",
+    color: "pink-400",
     msg: "",
   });
 
@@ -29,9 +29,9 @@ const LoginForm = () => {
       setProcessing(false);
       setAlertState({
         show: true,
-        color: "500",
-        msg: //err.message ||
-          "Invalid Credential",
+        color: "pink-500",
+        //err.message ||
+        msg: "Invalid Credential",
       });
     }
   };
