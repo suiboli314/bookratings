@@ -1,20 +1,18 @@
-import { useState, useContext, useEffect, useRef } from "react";
+import { useState, useContext, useRef } from "react";
+import PropTypes from "prop-types";
+
 import { Context } from "../context.js";
 import Loader from "./Loader.js";
 import Alert from "./Alert.js";
 import ReviewService from "../services/review.service.js";
 
 const LeaveReviewForm = () => {
-  const [bookName, setbookName] = useState("");
-  const [review, setReview] = useState("");
-  const [userName, setuserName] = useState([]);
+  const bookNameRef = useRef(null);
   const ratingOutRef = useRef(null);
   const ratingRef = useRef(null);
+  const reviewRef = useRef(null);
 
   const { state } = useContext(Context);
-  useEffect(() => {
-    setuserName(state.user.userName);
-  }, [state.user.userName]);
 
   const [processing, setProcessing] = useState(false);
   const [alertHidden, setAlertHidden] = useState(true);
@@ -28,10 +26,10 @@ const LeaveReviewForm = () => {
     setProcessing(true);
 
     ReviewService.insertreview({
-      bookName,
-      userName,
+      bookName: bookNameRef.current.value,
+      userName: state.user.userName,
       rating: ratingRef.current.value,
-      review,
+      review: reviewRef.current.value,
     })
       .then((res) => {
         setProcessing(false);
@@ -78,8 +76,7 @@ const LeaveReviewForm = () => {
             type="text"
             required
             className="rounded flex w-full px-3 py-2 my-1 mb-8 border-seperate border-spacing-y-1 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm"
-            value={bookName}
-            onChange={(e) => setbookName(e.target.value)}
+            ref={bookNameRef}
           />
         </div>
         <div>
@@ -119,8 +116,7 @@ const LeaveReviewForm = () => {
           </span>
           <textarea
             aria-label="reviewContent"
-            value={review}
-            onChange={(e) => setReview(e.target.value)}
+            ref={reviewRef}
             className="appearance-none rounded relative block w-full px-3 py-2 h-40 border-seperate border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm"
           ></textarea>
         </div>

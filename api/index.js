@@ -17,6 +17,7 @@ api.post("/getbookallreview", reviewController.getBookAllReview);
 api.post("/getuserallreview", reviewController.getUserAllReview);
 api.post("/getuserbookreview", reviewController.getuserbookreview);
 api.delete("/deleteuserbookreview", reviewController.deleteuserbookreview);
+api.put("/reviseuserbookreview", reviewController.reviseuserbookreview);
 
 const router = express.Router();
 router.use("/api/", api);
