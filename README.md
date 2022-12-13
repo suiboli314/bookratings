@@ -5,7 +5,7 @@
 
 ###### Author: Qishu Dong & Chenjie Wu
 
-###### Page: [bookratings](https://bookratings5610.onrender.com/)
+###### Page: [bookratings](https://bookratings.vercel.app/)
 
 # Porject Objective
 
