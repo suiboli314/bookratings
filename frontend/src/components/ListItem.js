@@ -1,14 +1,13 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 
-import { AiOutlineEdit } from "react-icons/ai/index.js";
 import { BiTrashAlt } from "react-icons/bi/index.js";
 
 import ReviewService from "../services/review.service.js";
 import Alert from "./Alert.js";
 
 export default function ListItem({ book, userName, setTime }) {
-    const [alertHidden, setAlertHidden] = useState(true);
+  const [alertHidden, setAlertHidden] = useState(true);
   const [alertState, setAlertState] = useState({
     color: "green-500",
     msg: "",
@@ -78,14 +77,8 @@ export default function ListItem({ book, userName, setTime }) {
           {getStars(book.rating)}
 
           <button
-            aria-label="edit"
-            className="flex pl-2 space-x-4 dark:text-white"
-          >
-            <AiOutlineEdit />
-          </button>
-          <button
             aria-label="delete"
-            className="flex pl-2 dark:text-white btn"
+            className="flex pl-2 dark:text-white"
             onClick={() => {
               deletereview(book.bookName, userName);
             }}
