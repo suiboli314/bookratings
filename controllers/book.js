@@ -54,7 +54,7 @@ function Book() {
   book.getAllBooks = async (req, res) => {
     const query = {
       bookName: { $exists: true },
-      rating: { $exists: true, $gt: 8.0 },
+      rating: { $exists: true, $gt: 4.0 },
     };
     // sort by rating in descending order, limit to only 100
     const options = { sort: { rating: -1 }, limit: 100 };

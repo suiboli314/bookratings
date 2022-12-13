@@ -3,18 +3,24 @@ import "./pin.css";
 
 const Pin = ({ pin, width, height }) => {
   let title = pin.bookName;
-  let authors = pin.authors;
+  const authors = pin.authors;
   let description = pin.infoDescription;
 
-  title = title ? <p>{title}</p> : <></>;
-  authors = authors ? (
-    <p>
-      Author: <br /> {authors}
+  title = title ? <p className="font-medium">{title}</p> : <></>;
+
+  const authorshtml = authors ? (
+    <p className="text-sky-700 font-light text-sm">
+      Author:{" "}
+      <span className="font-serif text-sky-900 text-base">{authors}</span>
     </p>
   ) : (
     <></>
   );
-  description = description ? <p>{description}</p> : <></>;
+  description = description ? (
+    <p className="font-light">{description}</p>
+  ) : (
+    <></>
+  );
 
   return (
     <div
@@ -32,7 +38,7 @@ const Pin = ({ pin, width, height }) => {
         </span>
       </div>
       <div className="pin-link">
-        <div className="pin-p-desc text-sky-700">{authors}</div>
+        <div className="pin-p-desc">{authorshtml}</div>
       </div>
     </div>
   );

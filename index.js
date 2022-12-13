@@ -35,6 +35,6 @@ app
 app.use(express.static(path.resolve(__dirname, "./frontend/build")));
 
 // Register the application main router
-app.use("/api", router);
+app.use(router);
 
 export default app;

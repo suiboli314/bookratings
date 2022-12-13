@@ -28,7 +28,7 @@ function Ranking() {
 
   function setPinDimension(width = 200, height) {
     let pinWidth = 250;
-    if (deviceWidth <= 650) pinWidth = deviceWidth / 2 - 16;
+    if (deviceWidth <= 650) pinWidth = deviceWidth / 2 - 20;
     let pinWidthPerc = (pinWidth * 100) / width;
     let pinHeight = (height * pinWidthPerc) / 100;
     pinWidth = pinWidth + "px";

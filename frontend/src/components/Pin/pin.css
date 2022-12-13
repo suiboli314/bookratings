@@ -22,10 +22,9 @@
 }
 
 .pin-p {
-  background-color: white;
   height: auto;
   outline: none;
-  box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 10px 0px rgba(0, 0, 0, 0.2);
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
   border-bottom-left-radius: 10px;
@@ -61,11 +60,9 @@
   border-bottom-right-radius: 10px;
 }
 .pin-p-desc p::after {
-  content: "";
   position: absolute;
   right: 0;
   top: 0;
   width: 35%;
   height: 100%;
-  background: linear-gradient(to right, rgba(255, 255, 255, 0), white 180%);
 }
