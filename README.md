@@ -70,7 +70,8 @@ And the frontend will run on http://localhost:3000
 
 <img width="1490" alt="image" src="https://user-images.githubusercontent.com/105243848/207230738-7b592d45-6d12-47de-b662-8adf68c25f2e.png">
 <img width="1488" alt="image" src="https://user-images.githubusercontent.com/105243848/207230837-a11548e8-c171-41ba-be81-79bd29fb14b7.png">
-<img width="1502" alt="image" src="https://user-images.githubusercontent.com/105243848/207230874-57f9d68f-c219-488b-be52-b8fa88b09ab3.png">
+<img width="1641" alt="image" src="https://user-images.githubusercontent.com/105243848/207436765-7aa9a1d3-a8a1-47eb-a2e1-3ec9de130d23.png">
+
 
 
 # Thanks
