@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useRef } from "react";
 import { GoLock } from "react-icons/go/index.js";
 
 import { Context } from "../../context.js";
@@ -7,14 +7,14 @@ import Loader from "../Loader.js";
 import AuthService from "../../services/auth.service.js";
 
 const LoginForm = () => {
-  const [emailOrUsername, setEmailOrUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
 
   const { dispatch } = useContext(Context);
 
   const [processing, setProcessing] = useState(false);
+  const [alertHidden, setAlertHidden] = useState(true);
   const [alertState, setAlertState] = useState({
-    show: false,
     color: "pink-400",
     msg: "",
   });
@@ -23,24 +23,38 @@ const LoginForm = () => {
     e.preventDefault();
 
     try {
-      await AuthService.login({ emailOrUsername, password, dispatch });
+      await AuthService.login({
+        emailOrUsername: emailRef.current.value,
+        password: passwordRef.current.value,
+        dispatch,
+      });
       setProcessing(false);
     } catch (err) {
       setProcessing(false);
+      setAlertHidden(false);
       setAlertState({
-        show: true,
         color: "pink-500",
-        //err.message ||
-        msg: "Invalid Credential",
+        msg: err.message || "Something Wrong while Login",
       });
     }
   };
 
+  const style = `appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm`;
+  const upstyle = style + " rounded-t-md";
+  const btstyle = style + " rounded-b-md";
+  const btnstyle =
+    "group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-sky-700 hover:bg-s'k'y-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500";
+
   return (
     <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
       <div className="flex justify-center">
-        {alertState.show ? (
-          <Alert color={alertState.color} msg={alertState.msg} />
+        {!alertHidden ? (
+          <Alert
+            color={alertState.color}
+            msg={alertState.msg}
+            alertHidden={alertHidden}
+            setAlertHidden={setAlertHidden}
+          />
         ) : null}
       </div>
       <div className="rounded-md shadow-sm -space-y-px">
@@ -54,10 +68,9 @@ const LoginForm = () => {
           autoComplete="email"
           required
           autoFocus
-          className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm"
+          className={upstyle}
           placeholder="Email address"
-          value={emailOrUsername}
-          onChange={(e) => setEmailOrUsername(e.target.value)}
+          ref={emailRef}
         />
 
         <label htmlFor="password" className="sr-only">
@@ -69,20 +82,16 @@ const LoginForm = () => {
           type="password"
           autoComplete="current-password"
           required
-          className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm"
+          className={btstyle}
           placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          ref={passwordRef}
         />
       </div>
 
-      <button
-        type="submit"
-        className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-sky-700 hover:bg-s'k'y-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
-      >
+      <button type="submit" className={btnstyle}>
         <span className="absolute left-0 inset-y-0 flex items-center pl-3">
           <GoLock
-            className="h-5 w-5 text-sky-300 group-hover:text-sky-200"
+            className="h-5 w-5 group-hover:text-sky-200 stroke-current fill-current"
             aria-hidden="true"
           />
         </span>

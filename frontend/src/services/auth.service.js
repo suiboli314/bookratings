@@ -2,18 +2,20 @@
  * Handles the signup HTTP request to add a new user to the database
  * The data needed for each user is First Name, Last Name, Username, Email, and Password
  */
-const signup = async ({ firstName, lastName, username, email, password }) => {
-  return await fetch(`/api/signup`, {
+const signup = async ({ firstName, lastName, userName, email, password }) => {
+  const res = await fetch(`/api/signup`, {
     method: "post",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       firstName: firstName,
       lastName: lastName,
-      username: username,
+      userName: userName,
       email: email,
       password: password,
     }),
   });
+
+  if (!res.ok) throw new Error(await res.text());
 };
 /**
  * Handles the reconnect session request.
@@ -21,7 +23,7 @@ const signup = async ({ firstName, lastName, username, email, password }) => {
 const getuser = async ({ dispatch }) => {
   const res = await fetch(`/getuser/`, { method: "get" });
 
-  if (!res.ok) throw new Error(res.body);
+  if (!res.ok) throw new Error(await res.text());
   const user = await res.json();
   dispatch({
     type: "LOGIN",
@@ -44,7 +46,7 @@ const login = async ({ emailOrUsername, password, dispatch }) => {
       password: password,
     }),
   });
-  if (!res.ok) throw new Error(res.body);
+  if (!res.ok) throw new Error(await res.text());
 
   const user = await res.json();
   dispatch({
@@ -70,7 +72,7 @@ const reset = async ({ emailOrUsername, password, dispatch }) => {
     }),
   });
 
-  if (!res.ok) throw new Error(res.body);
+  if (!res.ok) throw new Error(await res.text());
   logout({ dispatch: dispatch });
 };
 
@@ -83,7 +85,7 @@ const deleteUser = async ({ state, dispatch }) => {
       emailOrUsername: emailOrUsername,
     }),
   });
-  if (!res.ok) throw new Error(res.body);
+  if (!res.ok) throw new Error(await res.text());
   logout({ dispatch: dispatch });
 };
 

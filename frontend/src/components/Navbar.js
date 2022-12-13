@@ -2,10 +2,6 @@ import { useState, useContext } from "react";
 import { Transition } from "@headlessui/react";
 import { Link } from "react-router-dom";
 
-import { MdMenuOpen, MdClose } from "react-icons/md/index.js";
-import { Context } from "../context.js";
-import AuthService from "../services/auth.service.js";
-
 import {
   AiOutlineLogin,
   AiOutlineUserAdd,
@@ -15,6 +11,11 @@ import {
 } from "react-icons/ai/index.js";
 import { BiReset, BiUserCircle } from "react-icons/bi/index.js";
 import { FiEdit } from "react-icons/fi/index.js";
+
+import { MdMenuOpen, MdClose } from "react-icons/md/index.js";
+import { Context } from "../context.js";
+import AuthService from "../services/auth.service.js";
+import Modal from "./ModalPopUp.js";
 
 const Actions = ({ auth, customStyle, state, dispatch }) => {
   return (
@@ -45,11 +46,13 @@ const Actions = ({ auth, customStyle, state, dispatch }) => {
               <div>Reset Password</div>
             </span>
           </Link>
-          <button
-            className={customStyle + " btn"}
-            onClick={async () => {
-              await AuthService.deleteUser({ state, dispatch });
-            }}
+          <Modal
+            customStyle={customStyle}
+            data-modal-toggle="popup-modal"
+            action={async () =>
+              await AuthService.deleteUser({ state, dispatch })
+            }
+            actionName="Delete User"
           >
             <div className="flex space-x-1">
               <div className="self-center">
@@ -57,9 +60,9 @@ const Actions = ({ auth, customStyle, state, dispatch }) => {
               </div>
               <div>Delete User</div>
             </div>
-          </button>
+          </Modal>
           <button
-            className={customStyle + " btn"}
+            className={customStyle}
             onClick={() => AuthService.logout({ dispatch })}
           >
             <div className="flex space-x-1">

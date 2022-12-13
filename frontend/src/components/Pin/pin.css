@@ -54,7 +54,7 @@
 }
 .pin-p-desc p {
   width: 100%;
-  margin: 0 0 0 5px;
+  padding: 4px 4px 4px 10px;
   overflow: hidden;
   position: relative;
   border-bottom-right-radius: 10px;

@@ -8,20 +8,21 @@ function auth() {
   const connect = () => database.collection(COLLECTION_NAME);
 
   authenticate.signup = async (req, res) => {
-    const { firstName, lastName, username, email, password } = req.body; // Get the user data
+    const { firstName, lastName, userName, email, password } = req.body; // Get the user data
     let client, db;
 
     try {
       [client, db] = await connect();
       // Check if the user exists in the database
       const emailExists = await db.findOne({ email: email });
-      const usernameExists = await db.findOne({ username: username });
+      const usernameExists = await db.findOne({ userName: userName });
       if (emailExists)
         return res.status(409).send("Email Already Exist. Please Login");
 
       if (usernameExists)
-        return res.status(409).send("Username Already Exist. Please Login");
+        return res.status(409).send("Username Already Exist. Please Change");
 
+      console.log(firstName, lastName, userName, email, password);
       // Hash the password
 
       // Create the user token
@@ -32,7 +33,7 @@ function auth() {
       const result = await db.insertOne({
         firstName: firstName,
         lastName: lastName,
-        userName: username,
+        userName: userName,
         email: email,
         password: bcrypt.hashSync(password, bcrypt.genSaltSync()),
         token: token,

@@ -8,9 +8,9 @@ import ReviewService from "../services/review.service.js";
 import Alert from "./Alert.js";
 
 export default function ListItem({ book, userName, setTime }) {
+    const [alertHidden, setAlertHidden] = useState(true);
   const [alertState, setAlertState] = useState({
-    show: false,
-    color: "green",
+    color: "green-500",
     msg: "",
   });
 
@@ -18,18 +18,18 @@ export default function ListItem({ book, userName, setTime }) {
     ReviewService.deletereview({ bookName, userName })
       .then((res) => {
         setTime(new Date());
+        setAlertHidden(false);
         setAlertState({
-          show: true,
           color: "green-500",
           msg: "Successfully delete a review!",
         });
       })
       .catch((err) => {
-        console.log(err.response.data);
+        console.log(err.message);
+        setAlertHidden(false);
         setAlertState({
-          show: true,
           color: "pink-500",
-          msg: err.response.data || "Failed to leave a review",
+          msg: err.message || "Failed to leave a review",
         });
       });
   };
@@ -44,7 +44,7 @@ export default function ListItem({ book, userName, setTime }) {
         xmlns="http://www.w3.org/2000/svg"
         key={num.toString()}
       >
-        <title>Fifth star</title>
+        <title>the {num} star</title>
         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
       </svg>
     );
@@ -60,8 +60,13 @@ export default function ListItem({ book, userName, setTime }) {
   return (
     <article>
       <div className="flex justify-center">
-        {alertState.show ? (
-          <Alert color={alertState.color} msg={alertState.msg} />
+        {!alertHidden ? (
+          <Alert
+            color={alertState.color}
+            msg={alertState.msg}
+            alertHidden={alertHidden}
+            setAlertHidden={setAlertHidden}
+          />
         ) : null}
       </div>
       <div className="relative m-9 mb-8 pb-3 border rounded-lg border-b-2 border-sky-600 dark:bg-slate-800">
@@ -97,7 +102,7 @@ export default function ListItem({ book, userName, setTime }) {
 }
 
 ListItem.propTypes = {
-  book: PropTypes.string.isRequired,
+  book: PropTypes.object.isRequired,
   userName: PropTypes.string.isRequired,
-  setTime: PropTypes.func.isRequired,
+  setTime: PropTypes.func,
 };
