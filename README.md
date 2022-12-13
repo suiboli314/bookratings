@@ -1,4 +1,4 @@
-# CS 5610 Project: Book Rating Website
+# CS 5610 Project: Book Rating Website 2.0
 
 ![visitor badge](https://visitor-badge.glitch.me/badge?page_id=suiboli314.bookratings)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
@@ -68,8 +68,9 @@ And the frontend will run on http://localhost:3000
 
 ## Project Screenshot
 
-<img width="991" alt="image" src="https://user-images.githubusercontent.com/105243848/204412979-de5eb54f-1d65-404a-9c00-91f71d6c23b4.png">
-<img width="1846" alt="image" src="https://user-images.githubusercontent.com/105243848/204414714-e2367045-542b-4d35-a572-495650c28782.png">
+<img width="1490" alt="image" src="https://user-images.githubusercontent.com/105243848/207230738-7b592d45-6d12-47de-b662-8adf68c25f2e.png">
+<img width="1488" alt="image" src="https://user-images.githubusercontent.com/105243848/207230837-a11548e8-c171-41ba-be81-79bd29fb14b7.png">
+<img width="1502" alt="image" src="https://user-images.githubusercontent.com/105243848/207230874-57f9d68f-c219-488b-be52-b8fa88b09ab3.png">
 
 
 # Thanks
