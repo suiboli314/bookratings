@@ -46,7 +46,7 @@ And the frontend will run on http://localhost:3000
 
 ###### [Desgin Document](https://github.com/suiboli314/bookratings/blob/main/P3%20DesignDoc.pdf)
 
-###### [Prensentation](https://github.com/suiboli314/bookratings/blob/main/P3Slides.pdf)
+###### [Prensentation](https://docs.google.com/presentation/d/1SjvqLXE5dCg12O8ymdcFfNvqwww9lNicMr55SGN1DdI/edit?usp=sharing)
 
 ###### [60% milestone on Nov 15](https://github.com/suiboli314/bookratings/releases/tag/60%25)
 
