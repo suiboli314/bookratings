@@ -11,12 +11,12 @@
 
 A book rating page that allows user to rate a book in 0-5 by their choice. Also, user could leave a book review post, delete his own post and see other’s posts. At the home page, show the most favorites books list with ranking that was collected from users’ rating. User is able to sign up an account with email address, username and password, then sign in and sign out. This project applies the concepts learned in class by building a MERN stack application with React, Nodejs, Express, JavaScript, MongoDB, HTML5 and Tailwind.
 
-// overall excellent and impressive project, I tried to run your project and it is working as described. 
-// maybe you could consider ra-arranging the browsing page so that the book list could be sorted and has some order
-// Also, if users could login using username, it would be more convinient compared to using email address
-// And the rating score is not shown once a review is saved
-// I like your design, which is simple, and also has a main color
-// usability is good, I tried to use the website through keyboard and it's running well
+// overall excellent and impressive project, I tried to run your project and it is working as described. <br/>
+// maybe you could consider ra-arranging the browsing page so that the book list could be sorted and has some order<br/>
+// Also, if users could login using username, it would be more convinient compared to using email address<br/>
+// And the rating score is not shown once a review is saved<br/>
+// I like your design, which is simple, and also has a main color<br/>
+// usability is good, I tried to use the website through keyboard and it's running well<br/>
 
 Install and Run Instruction
 Node+Express runs on http://localhost:4000
