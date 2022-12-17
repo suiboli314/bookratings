@@ -105,6 +105,7 @@ function auth() {
     }
 
     // A regex expression to test if the given value is an email or username
+    // Code review from Yuanxun Qin: Remove the next 4 lines and put them into the register phase.
     let regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{1,8})+$/;
     const data = regexEmail.test(emailOrUsername)
       ? { email: emailOrUsername }
