@@ -48,6 +48,7 @@ function Ranking() {
         <h1>
           <img className="mx-auto h-12 w-auto" src={logo} alt="Logo" />
         </h1>
+//Add some structure or hierarchy to this gallery may increase the web's readability. For example, group reviews of the same book together.
         <Gallery allPins={allPins}></Gallery>
       </div>
     </BasePage>
